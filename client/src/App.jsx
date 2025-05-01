@@ -9,32 +9,22 @@ import { ToastProvider } from "./components/ToastProvider";
 
 const App = () => {
     return (
-        <div className="pt-20">
-            <ToastProvider>
-                <Navbar />
-                <Routes>
-                    {/* Public Routes */}
-                    <Route path="/" element={<Login />} />
-
-                    {/* Protected Routes */}
-                    <Route element={<ProtectedRoute allowedRoles={["Admin", "User"]} />}>
-                        <Route path="/home" element={<Home />} />
-                        
-                    </Route>
-
-                    {/* Role-Specific Routes */}
-                    <Route element={<ProtectedRoute allowedRoles={["Admin"]} />}>
-                        <Route path="/admin" element={<AdminDashboard />} />
-                    </Route>
-
-                    
-
-                    
-
-                    
-                </Routes>
-            </ToastProvider>
-        </div>
+        <ThemeProvider>
+      <AuthProvider>
+      
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Register />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/user/:userId" element={<UserProfile />} />
+          <Route path="/oauth2/success" element={<OauthRedirect />} />
+        </Routes>
+       
+      </AuthProvider>
+    </ThemeProvider>
     );
 };
 
