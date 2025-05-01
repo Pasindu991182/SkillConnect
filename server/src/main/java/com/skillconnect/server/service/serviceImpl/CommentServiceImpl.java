@@ -1,12 +1,14 @@
-package com.skillconnect.server.service.impl;
+package com.skillconnect.server.service.serviceImpl;
 
 import com.skillconnect.server.model.Comment;
+import com.skillconnect.server.model.Notification;
 import com.skillconnect.server.model.Post;
 import com.skillconnect.server.model.User;
 import com.skillconnect.server.repository.CommentRepository;
 import com.skillconnect.server.repository.PostRepository;
 import com.skillconnect.server.repository.UserRepository;
 import com.skillconnect.server.service.CommentService;
+import com.skillconnect.server.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,124 +26,87 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
     
     @Autowired
     public CommentServiceImpl(
             CommentRepository commentRepository,
             PostRepository postRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository, NotificationService notificationService) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
         log.info("CommentServiceImpl initialized");
     }
     
     @Override
-    public Comment createComment(Comment comment, Long postId, Long userId) {
-        log.info("Creating new comment for post ID: {} by user ID: {}", postId, userId);
+    public Comment createComment(Comment comment) {
+        log.info("Creating new comment for post ID: {} by user ID: {}", comment.getPost().getPostId(), comment.getUser().getUserId());
         
-        Post post = postRepository.findById(postId)
+        Post post = postRepository.findById(comment.getPost().getPostId())
                 .orElseThrow(() -> {
-                    log.error("Post not found with ID: {}", postId);
-                    return new RuntimeException("Post not found with id: " + postId);
+                    log.error("Post not found with ID: {}", comment.getPost().getPostId());
+                    return new RuntimeException("Post not found with id: " + comment.getPost().getPostId());
                 });
         
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(comment.getUser().getUserId())
                 .orElseThrow(() -> {
-                    log.error("User not found with ID: {}", userId);
-                    return new RuntimeException("User not found with id: " + userId);
+                    log.error("User not found with ID: {}", comment.getUser().getUserId());
+                    return new RuntimeException("User not found with id: " + comment.getUser().getUserId());
                 });
         
         comment.setPost(post);
         comment.setUser(user);
-        // Note: The @PrePersist will handle setting createdAt and updatedAt
+
+        //notificationService.createNotification(new Notification(post.getUser(), user.getFirstName() + " " + user.getLastName() + " commented on your post : " + post.getDescription()));
         
         Comment savedComment = commentRepository.save(comment);
-        log.info("Comment created successfully with ID: {}", savedComment.getId());
+        log.info("Comment created successfully with ID: {}", savedComment.getCommentId());
         return savedComment;
     }
     
     @Override
-    public Optional<Comment> findById(Long commentId) {
+    public Optional<Comment> findById(int commentId) {
         log.debug("Finding comment by ID: {}", commentId);
         return commentRepository.findById(commentId);
     }
     
     @Override
-    public List<Comment> findCommentsByPostId(Long postId) {
+    public List<Comment> findCommentsByPostId(int postId) {
         log.debug("Finding comments for post ID: {}", postId);
-        List<Comment> comments = commentRepository.findByPostId(postId);
+        List<Comment> comments = commentRepository.findByPost_PostId(postId);
         log.debug("Found {} comments for post ID: {}", comments.size(), postId);
         return comments;
     }
     
     @Override
-    public List<Comment> findCommentsByUserId(Long userId) {
-        log.debug("Finding comments by user ID: {}", userId);
-        List<Comment> comments = commentRepository.findByUserId(userId);
-        log.debug("Found {} comments by user ID: {}", comments.size(), userId);
+    public List<Comment> findCommentsByUserId(int id) {
+        log.debug("Finding comments by user ID: {}", id);
+        List<Comment> comments = commentRepository.findByUser_UserId(id);
+        log.debug("Found {} comments by user ID: {}", comments.size(), id);
         return comments;
     }
     
     @Override
     public Comment updateComment(Comment comment) {
-        log.info("Updating comment with ID: {}", comment.getId());
-        if (!commentRepository.existsById(comment.getId())) {
-            log.error("Comment not found with ID: {}", comment.getId());
-            throw new RuntimeException("Comment not found with id: " + comment.getId());
+        log.info("Updating comment with ID: {}", comment.getCommentId());
+        if (!commentRepository.existsById(comment.getCommentId())) {
+            log.error("Comment not found with ID: {}", comment.getCommentId());
+            throw new RuntimeException("Comment not found with id: " + comment.getCommentId());
         }
         
         comment.setUpdatedAt(LocalDateTime.now());
         Comment updatedComment = commentRepository.save(comment);
-        log.info("Comment updated successfully: {}", comment.getId());
+        log.info("Comment updated successfully: {}", comment.getCommentId());
         return updatedComment;
     }
     
     @Override
-    public void deleteComment(Long commentId) {
+    public void deleteComment(int commentId) {
         log.info("Deleting comment with ID: {}", commentId);
         commentRepository.deleteById(commentId);
         log.info("Comment deleted successfully: {}", commentId);
     }
     
-    @Override
-    public List<Comment> findAllComments() {
-        log.debug("Retrieving all comments");
-        List<Comment> comments = commentRepository.findAll();
-        log.debug("Found {} comments", comments.size());
-        return comments;
-    }
-    
-    @Override
-    public List<Comment> findRepliesByCommentId(Long parentCommentId) {
-        log.debug("Finding replies for comment ID: {}", parentCommentId);
-        List<Comment> replies = commentRepository.findByParentCommentId(parentCommentId);
-        log.debug("Found {} replies for comment ID: {}", replies.size(), parentCommentId);
-        return replies;
-    }
-    
-    @Override
-    public Comment replyToComment(Comment reply, Long parentCommentId, Long userId) {
-        log.info("Creating reply to comment ID: {} by user ID: {}", parentCommentId, userId);
-        
-        Comment parentComment = commentRepository.findById(parentCommentId)
-                .orElseThrow(() -> {
-                    log.error("Parent comment not found with ID: {}", parentCommentId);
-                    return new RuntimeException("Parent comment not found with id: " + parentCommentId);
-                });
-        
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> {
-                    log.error("User not found with ID: {}", userId);
-                    return new RuntimeException("User not found with id: " + userId);
-                });
-        
-        reply.setParentComment(parentComment);
-        reply.setPost(parentComment.getPost());
-        reply.setUser(user);
-        
-        Comment savedReply = commentRepository.save(reply);
-        log.info("Reply created successfully with ID: {}", savedReply.getId());
-        return savedReply;
-    }
 }

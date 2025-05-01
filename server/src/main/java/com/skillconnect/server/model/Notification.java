@@ -19,24 +19,9 @@ public class Notification {
     @Column(name = "notification_id")
     private int notificationId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    
-    @Column(name = "type", nullable = false, length = 50)
-    private String type;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_user_id")
-    private User fromUser;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    private Comment comment;
     
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
@@ -50,5 +35,10 @@ public class Notification {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    public Notification(User user, String content) {
+        this.user = user;
+        this.content = content;
     }
 }

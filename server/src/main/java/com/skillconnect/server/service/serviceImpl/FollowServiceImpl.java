@@ -1,16 +1,17 @@
-package com.skillconnect.server.service.impl;
+package com.skillconnect.server.service.serviceImpl;
 
 import com.skillconnect.server.model.Follow;
+import com.skillconnect.server.model.Notification;
 import com.skillconnect.server.model.User;
 import com.skillconnect.server.repository.FollowRepository;
 import com.skillconnect.server.repository.UserRepository;
 import com.skillconnect.server.service.FollowService;
+import com.skillconnect.server.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -20,116 +21,95 @@ public class FollowServiceImpl implements FollowService {
 
     private final FollowRepository followRepository;
     private final UserRepository userRepository;
-    
+    private final NotificationService notificationService;
+
     @Autowired
     public FollowServiceImpl(
             FollowRepository followRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository, NotificationService notificationService) {
         this.followRepository = followRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
         log.info("FollowServiceImpl initialized");
     }
-    
+
     @Override
-    public Follow followUser(Long followerId, Long followedId) {
-        log.info("Creating follow relationship: follower ID {} following user ID {}", followerId, followedId);
-        
+    public Follow followUser(Follow follow) {
+        log.info("Creating follow relationship: follower ID {} following user ID {}", follow.getFollower().getUserId(), follow.getUser().getUserId());
+
         // Check if users exist
-        User follower = userRepository.findById(followerId)
+        User follower = userRepository.findById(follow.getFollower().getUserId())
                 .orElseThrow(() -> {
-                    log.error("Follower user not found with ID: {}", followerId);
-                    return new RuntimeException("Follower user not found with id: " + followerId);
+                    log.error("Follower user not found with ID: {}", follow.getFollower().getUserId());
+                    return new RuntimeException("Follower user not found with id: " + follow.getFollower().getUserId());
                 });
-        
-        User followed = userRepository.findById(followedId)
+
+        User followed = userRepository.findById(follow.getUser().getUserId())
                 .orElseThrow(() -> {
-                    log.error("Followed user not found with ID: {}", followedId);
-                    return new RuntimeException("Followed user not found with id: " + followedId);
+                    log.error("Followed user not found with ID: {}", follow.getUser().getUserId());
+                    return new RuntimeException("Followed user not found with id: " + follow.getUser().getUserId());
                 });
-        
+
         // Check if already following
-        if (isFollowing(followerId, followedId)) {
-            log.warn("User ID {} is already following user ID {}", followerId, followedId);
+        if (isFollowing(follow.getFollower().getUserId(), follow.getUser().getUserId())) {
+            log.warn("User ID {} is already following user ID {}", follow.getFollower().getUserId(), follow.getUser().getUserId());
             throw new RuntimeException("Already following this user");
         }
-        
+
         // Create new follow relationship
-        Follow follow = new Follow();
-        follow.setFollower(follower);
-        follow.setFollowed(followed);
-        // The @PrePersist will handle setting createdAt
-        
-        Follow savedFollow = followRepository.save(follow);
-        log.info("Follow relationship created successfully with ID: {}", savedFollow.getId());
+        Follow newFollow = new Follow();
+        newFollow.setFollower(follower);
+        newFollow.setUser(followed);
+
+        notificationService.createNotification(new Notification(followed, follower.getFirstName() + " " + follower.getLastName() + " started following you"));
+
+        Follow savedFollow = followRepository.save(newFollow);
+        log.info("Follow relationship created successfully with ID: {}", savedFollow.getFollowId());
         return savedFollow;
     }
-    
+
     @Override
-    public void unfollowUser(Long followerId, Long followedId) {
-        log.info("Removing follow relationship: follower ID {} unfollowing user ID {}", followerId, followedId);
-        
-        Follow follow = followRepository.findByFollowerIdAndFollowedId(followerId, followedId)
+    public void unfollowUser(Follow follow) {
+        log.info("Removing follow relationship: follower ID {} unfollowing user ID {}", follow.getFollower().getUserId(), follow.getUser().getUserId());
+
+        Follow followExist = followRepository.findByFollower_UserIdAndUser_UserId(follow.getFollower().getUserId(), follow.getUser().getUserId())
                 .orElseThrow(() -> {
-                    log.error("Follow relationship not found between follower ID {} and followed ID {}", 
-                            followerId, followedId);
+                    log.error("Follow relationship not found between follower ID {} and followed ID {}",
+                            follow.getFollower().getUserId(), follow.getUser().getUserId());
                     return new RuntimeException("Follow relationship not found");
                 });
-        
-        followRepository.delete(follow);
+
+        followRepository.delete(followExist);
         log.info("Follow relationship removed successfully");
     }
-    
+
     @Override
-    public boolean isFollowing(Long followerId, Long followedId) {
+    public boolean isFollowing(int followerId, int followedId) {
         log.debug("Checking if user ID {} is following user ID {}", followerId, followedId);
-        boolean following = followRepository.existsByFollowerIdAndFollowedId(followerId, followedId);
+        Optional<Follow> follow = followRepository.findByFollower_UserIdAndUser_UserId(followerId, followedId);
+        boolean following = follow.isPresent();
         log.debug("User ID {} is following user ID {}: {}", followerId, followedId, following);
         return following;
     }
-    
+
     @Override
-    public List<Follow> getFollowerRelationships(Long userId) {
-        log.debug("Getting follower relationships for user ID: {}", userId);
-        List<Follow> followers = followRepository.findByFollowedId(userId);
-        log.debug("Found {} follower relationships for user ID: {}", followers.size(), userId);
-        return followers;
-    }
-    
-    @Override
-    public List<Follow> getFollowingRelationships(Long userId) {
-        log.debug("Getting following relationships for user ID: {}", userId);
-        List<Follow> following = followRepository.findByFollowerId(userId);
-        log.debug("Found {} following relationships for user ID: {}", following.size(), userId);
-        return following;
-    }
-    
-    @Override
-    public int getFollowerCount(Long userId) {
+    public int getFollowerCount(int userId) {
         log.debug("Getting follower count for user ID: {}", userId);
-        int count = followRepository.countByFollowedId(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        int count = followRepository.countByUser(user);
         log.debug("User ID {} has {} followers", userId, count);
         return count;
     }
-    
+
     @Override
-    public int getFollowingCount(Long userId) {
+    public int getFollowingCount(int userId) {
         log.debug("Getting following count for user ID: {}", userId);
-        int count = followRepository.countByFollowerId(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        int count = followRepository.countByFollower(user);
         log.debug("User ID {} is following {} users", userId, count);
         return count;
     }
-    
-    @Override
-    public List<Follow> findMutualFollows(Long userId1, Long userId2) {
-        log.debug("Finding mutual follows between user ID {} and user ID {}", userId1, userId2);
-        List<Follow> mutualFollows = followRepository.findMutualFollows(userId1, userId2);
-        log.debug("Found {} mutual follows", mutualFollows.size());
-        return mutualFollows;
-    }
-    
-    @Override
-    public Optional<Follow> findById(Long followId) {
-        log.debug("Finding follow relationship by ID: {}", followId);
-        return followRepository.findById(followId);
-    }
+
 }

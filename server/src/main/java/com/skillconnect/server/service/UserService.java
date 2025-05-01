@@ -3,21 +3,20 @@ package com.skillconnect.server.service;
 import com.skillconnect.server.model.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
 public interface UserService {
     
     User saveUser(User user);
-    Optional<User> findById(Long userId);
+    Map<String, Object> login(User user);
+    Optional<User> findById(int userId);
     User findByEmail(String email);
     List<User> findAllUsers();
-    User updateUser(User user);
-    void deleteUser(Long userId);
+    User updateUser(int userid, User user);
+    void deleteUser(int userId);
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);
-    List<User> getFollowers(Long userId);
-    List<User> getFollowing(Long userId);
-    User updateProfile(Long userId, String firstName, String lastName, String bio, String profileImage);
-    boolean changePassword(Long userId, String currentPassword, String newPassword);
+    boolean changePassword(int userId, String currentPassword, String newPassword);
 }
