@@ -11,30 +11,29 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Follows")
-public class Follow {
+@Table(name = "Media")
+public class Media {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "follow_id")
-    private int followId;
+    @Column(name = "media_id")
+    private int mediaId;
     
-    @Column(name = "follower_id", insertable = false, updatable = false)
-    private int followerId;
+    @Column(name = "post_id", insertable = false, updatable = false)
+    private int postId;
     
-    @Column(name = "following_id", insertable = false, updatable = false)
-    private int followingId;
+    @Column(name = "file_path", nullable = false)
+    private String filePath;
+    
+    @Column(name = "media_type", nullable = false)
+    private String mediaType;
     
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "follower_id", nullable = false)
-    private User follower;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "following_id", nullable = false)
-    private User following;
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
     
     @PrePersist
     protected void onCreate() {

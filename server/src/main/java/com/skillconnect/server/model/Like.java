@@ -11,23 +11,23 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "AdminMessages")
-public class AdminMessage {
+@Table(name = "Likes", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"user_id", "post_id"})
+})
+public class Like {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "message_id")
-    private int messageId;
+    @Column(name = "like_id")
+    private int likeId;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id", nullable = false)
-    private User admin;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     
-    @Column(name = "title", nullable = false, length = 100)
-    private String title;
-    
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
-    private String content;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
     
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -36,5 +36,5 @@ public class AdminMessage {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
+    
 }

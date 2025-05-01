@@ -1,20 +1,28 @@
 package com.skillconnect.server.service;
 
 import com.skillconnect.server.model.Follow;
+import com.skillconnect.server.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FollowService {
     
-    Follow followUser(Follow follow);
+    Follow saveFollow(Follow follow);
     
-    void unfollowUser(Follow follow);
+    Follow followUser(Long followerId, Long followingId);
     
-    int getFollowerCount(int userId);
+    void unfollowUser(Long followerId, Long followingId);
     
-    int getFollowingCount(int userId);
+    Optional<Follow> findById(Long followId);
     
-    boolean isFollowing(int followerId, int followingId);
-
-    List<Follow> getFollowers(int userId);
+    List<Follow> findFollowersByUser(User user);
+    
+    List<Follow> findFollowingByUser(User user);
+    
+    long getFollowerCount(Long userId);
+    
+    long getFollowingCount(Long userId);
+    
+    boolean isFollowing(Long followerId, Long followingId);
 }

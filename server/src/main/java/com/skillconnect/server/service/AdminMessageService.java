@@ -1,21 +1,26 @@
 package com.skillconnect.server.service;
 
 import com.skillconnect.server.model.AdminMessage;
+import com.skillconnect.server.model.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AdminMessageService {
     
-    AdminMessage createMessage(AdminMessage message);
+    AdminMessage saveAdminMessage(AdminMessage adminMessage);
     
-    Optional<AdminMessage> findById(int id);
+    Optional<AdminMessage> findById(Long messageId);
     
-    List<AdminMessage> findAllMessages();
+    List<AdminMessage> findAllAdminMessages();
     
-    List<AdminMessage> findMessagesByAdminId(int id);
+    List<AdminMessage> findAdminMessagesByAdmin(User admin);
     
-    AdminMessage updateMessage(AdminMessage adminMessage);
+    List<AdminMessage> findAdminMessagesByAdminId(Long adminId);
     
-    void deleteMessage(int messageId);
+    AdminMessage updateAdminMessage(AdminMessage adminMessage);
+    
+    void deleteAdminMessage(Long messageId);
+    
+    boolean isMessageOwner(Long messageId, Long adminId);
 }
