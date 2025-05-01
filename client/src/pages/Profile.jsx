@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import AppShell from '../components/layout/AppShell';
@@ -449,6 +450,8 @@ const Profile = () => {
   export default Profile;
   
 =======
+=======
+>>>>>>> origin/Member04
 import React from 'react';
 import AppShell from '../components/layout/AppShell';
 import { dummyUsers } from '../data/dummyUsers';
@@ -510,5 +513,9 @@ return (
 );
 };
 
+<<<<<<< HEAD
 export default Profile;
 >>>>>>> origin/Member02
+=======
+export default Profile;
+>>>>>>> origin/Member04

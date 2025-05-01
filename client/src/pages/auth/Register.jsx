@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 
 const Register = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const navigate = useNavigate();
   const { register } = useAuth();
 
@@ -310,6 +311,8 @@ const Register = () => {
 
 export default Register;
 =======
+=======
+>>>>>>> origin/Member04
 const navigate = useNavigate();
 const { register } = useAuth();
 
@@ -564,5 +567,9 @@ text
 );
 };
 
+<<<<<<< HEAD
 export default Register;
 >>>>>>> origin/Member02
+=======
+export default Register;
+>>>>>>> origin/Member04

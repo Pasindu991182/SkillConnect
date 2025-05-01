@@ -13,21 +13,28 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "Likes", uniqueConstraints = {
 <<<<<<< HEAD
+<<<<<<< HEAD
         @UniqueConstraint(columnNames = {"user_id", "post_id"})
 })
 public class Like {
 
 =======
+=======
+>>>>>>> origin/Member04
     @UniqueConstraint(columnNames = {"user_id", "post_id"})
 })
 public class Like {
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "like_id")
     private int likeId;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -41,6 +48,8 @@ public class Like {
     private LocalDateTime createdAt;
 
 =======
+=======
+>>>>>>> origin/Member04
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -53,14 +62,21 @@ public class Like {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
 }

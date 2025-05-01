@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { HeartIcon, ChatIcon, ShareIcon, BookmarkIcon, TrashIcon, PencilIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
@@ -192,6 +193,8 @@ const PostCard = ({ post, onPostUpdate }) => {
     : (post.createdAt || defaultDate);
   
 =======
+=======
+>>>>>>> origin/Member04
 import React, { useState } from 'react';
 import { HeartIcon, ChatIcon, ShareIcon, BookmarkIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
@@ -210,12 +213,16 @@ const PostCard = ({ post }) => {
     setLiked(!liked);
   };
   
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="p-4">
         <div className="flex items-center mb-4">
           <img 
+<<<<<<< HEAD
 <<<<<<< HEAD
             src={authorAvatar} 
             alt={authorName} 
@@ -236,6 +243,8 @@ const PostCard = ({ post }) => {
         )}
         <p className="text-gray-700 dark:text-gray-300 mb-4">{postContent}</p>
 =======
+=======
+>>>>>>> origin/Member04
             src={post.author.avatar} 
             alt={post.author.name} 
             className="h-10 w-10 rounded-full mr-3"
@@ -248,17 +257,24 @@ const PostCard = ({ post }) => {
         
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{post.title}</h2>
         <p className="text-gray-700 dark:text-gray-300 mb-4">{post.content}</p>
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         
         {post.image && (
           <div className="mb-4 rounded-lg overflow-hidden">
             <img 
               src={post.image} 
 <<<<<<< HEAD
+<<<<<<< HEAD
               alt={postTitle || "Post image"} 
 =======
               alt={post.title} 
 >>>>>>> origin/Member02
+=======
+              alt={post.title} 
+>>>>>>> origin/Member04
               className="w-full h-auto object-cover"
             />
           </div>
@@ -284,10 +300,14 @@ const PostCard = ({ post }) => {
             >
               <ChatIcon className="h-5 w-5" />
 <<<<<<< HEAD
+<<<<<<< HEAD
               <span>{comments.length}</span>
 =======
               <span>{post.comments.length}</span>
 >>>>>>> origin/Member02
+=======
+              <span>{post.comments.length}</span>
+>>>>>>> origin/Member04
             </button>
             
             <button className="flex items-center space-x-1">
@@ -305,6 +325,7 @@ const PostCard = ({ post }) => {
         <div className="border-t border-gray-200 dark:border-slate-700 p-4">
           <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Comments</h3>
           <div className="space-y-3">
+<<<<<<< HEAD
 <<<<<<< HEAD
             {comments.length > 0 ? (
               comments.map((comment) => (
@@ -422,6 +443,8 @@ const PostCard = ({ post }) => {
               </form>
             )}
 =======
+=======
+>>>>>>> origin/Member04
             {post.comments.map((comment, index) => (
               <div key={index} className="flex items-start">
                 <img 
@@ -453,7 +476,10 @@ const PostCard = ({ post }) => {
                 />
               </div>
             </div>
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
           </div>
         </div>
       )}

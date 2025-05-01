@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -11,16 +12,24 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
 >>>>>>> origin/Member02
+=======
+import { Link } from 'react-router-dom';
+
+const Login = () => {
+>>>>>>> origin/Member04
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     rememberMe: false
   });
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState(null);
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,6 +39,7 @@ const Login = () => {
     }));
   };
   
+<<<<<<< HEAD
 <<<<<<< HEAD
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,11 +65,16 @@ const Login = () => {
       setIsLoading(false);
     }
 =======
+=======
+>>>>>>> origin/Member04
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login attempt with:', formData);
     // Authentication logic would go here
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
   };
   
   return (

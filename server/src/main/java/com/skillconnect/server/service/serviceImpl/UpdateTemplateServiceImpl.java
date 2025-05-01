@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.skillconnect.server.service.impl;
 
 import com.skillconnect.server.model.UpdateTemplate;
@@ -6,11 +7,16 @@ import com.skillconnect.server.model.User;
 import com.skillconnect.server.repository.UpdateTemplateRepository;
 import com.skillconnect.server.repository.UserRepository;
 =======
+=======
+>>>>>>> origin/Member04
 package com.skillconnect.server.service.serviceImpl;
 
 import com.skillconnect.server.model.UpdateTemplate;
 import com.skillconnect.server.repository.UpdateTemplateRepository;
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 import com.skillconnect.server.service.UpdateTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +33,7 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
 
     private final UpdateTemplateRepository updateTemplateRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final UserRepository userRepository;
     
     @Autowired
@@ -36,16 +43,22 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
         this.updateTemplateRepository = updateTemplateRepository;
         this.userRepository = userRepository;
 =======
+=======
+>>>>>>> origin/Member04
     
     @Autowired
     public UpdateTemplateServiceImpl(
             UpdateTemplateRepository updateTemplateRepository) {
         this.updateTemplateRepository = updateTemplateRepository;
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         log.info("UpdateTemplateServiceImpl initialized");
     }
     
     @Override
+<<<<<<< HEAD
 <<<<<<< HEAD
     public UpdateTemplate createTemplate(UpdateTemplate template, Long creatorId) {
         log.info("Creating new update template by creator ID: {}", creatorId);
@@ -62,21 +75,30 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
         UpdateTemplate savedTemplate = updateTemplateRepository.save(template);
         log.info("Update template created successfully with ID: {}", savedTemplate.getId());
 =======
+=======
+>>>>>>> origin/Member04
     public UpdateTemplate createTemplate(UpdateTemplate template) {
         log.info("Creating new update template by creator ID: {}");
         
         UpdateTemplate savedTemplate = updateTemplateRepository.save(template);
         log.info("Update template created successfully with ID: {}", savedTemplate.getTemplateId());
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         return savedTemplate;
     }
     
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Optional<UpdateTemplate> findById(Long templateId) {
 =======
     public Optional<UpdateTemplate> findById(int templateId) {
 >>>>>>> origin/Member02
+=======
+    public Optional<UpdateTemplate> findById(int templateId) {
+>>>>>>> origin/Member04
         log.debug("Finding update template by ID: {}", templateId);
         return updateTemplateRepository.findById(templateId);
     }
@@ -90,6 +112,7 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
     }
     
     @Override
+<<<<<<< HEAD
 <<<<<<< HEAD
     public List<UpdateTemplate> findTemplatesByCreatorId(Long creatorId) {
         log.debug("Finding update templates by creator ID: {}", creatorId);
@@ -109,6 +132,8 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
         UpdateTemplate updatedTemplate = updateTemplateRepository.save(template);
         log.info("Update template updated successfully: {}", template.getId());
 =======
+=======
+>>>>>>> origin/Member04
     public UpdateTemplate updateTemplate(UpdateTemplate template) {
         log.info("Updating update template with ID: {}", template.getTemplateId());
         if (!updateTemplateRepository.existsById(template.getTemplateId())) {
@@ -118,20 +143,28 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
         
         UpdateTemplate updatedTemplate = updateTemplateRepository.save(template);
         log.info("Update template updated successfully: {}", template.getTemplateId());
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         return updatedTemplate;
     }
     
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void deleteTemplate(Long templateId) {
 =======
     public void deleteTemplate(int templateId) {
 >>>>>>> origin/Member02
+=======
+    public void deleteTemplate(int templateId) {
+>>>>>>> origin/Member04
         log.info("Deleting update template with ID: {}", templateId);
         updateTemplateRepository.deleteById(templateId);
         log.info("Update template deleted successfully: {}", templateId);
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
     
     @Override
@@ -207,4 +240,6 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
     }
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 }

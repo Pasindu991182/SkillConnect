@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useContext } from 'react';
 import { SearchIcon, MenuIcon, BellIcon, PlusIcon, SunIcon, MoonIcon, XIcon } from '@heroicons/react/outline';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -12,10 +13,18 @@ import { SearchIcon, MenuIcon, BellIcon, PlusIcon } from '@heroicons/react/outli
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { Link } from 'react-router-dom';
 >>>>>>> origin/Member02
+=======
+import React, { useState, useContext } from 'react';
+import { SearchIcon, MenuIcon, BellIcon, PlusIcon, SunIcon, MoonIcon } from '@heroicons/react/outline';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../contexts/ThemeContext';
+>>>>>>> origin/Member04
 
 const TopBar = () => {
   const isMobile = !useMediaQuery('(min-width: 768px)');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+<<<<<<< HEAD
 <<<<<<< HEAD
   const { darkMode, toggleTheme } = useContext(ThemeContext);
   const { currentUser } = useAuth();
@@ -235,6 +244,9 @@ const TopBar = () => {
       )}
     </>
 =======
+=======
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
+>>>>>>> origin/Member04
   
   return (
     <header className="bg-white dark:bg-slate-800 shadow-sm z-10">
@@ -273,6 +285,21 @@ const TopBar = () => {
           </div>
           
           <div className="flex items-center space-x-4">
+<<<<<<< HEAD
+=======
+            {/* Theme Toggle Button */}
+            <button 
+              onClick={toggleTheme}
+              className="p-1.5 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-slate-700"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? (
+                <SunIcon className="h-6 w-6" />
+              ) : (
+                <MoonIcon className="h-6 w-6" />
+              )}
+            </button>
+>>>>>>> origin/Member04
             <button className="p-1.5 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-slate-700">
               <BellIcon className="h-6 w-6" />
               <span className="absolute top-3 right-3 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-slate-800"></span>
@@ -300,7 +327,10 @@ const TopBar = () => {
         </div>
       </div>
     </header>
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
   );
 };
 

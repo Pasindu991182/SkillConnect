@@ -17,14 +17,19 @@ import java.util.List;
 @Table(name = "LearningPlans")
 public class LearningPlan {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "plan_id")
     private int planId;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     @Column(name = "title", nullable = false, length = 100)
@@ -50,6 +55,8 @@ public class LearningPlan {
     private LocalDateTime updatedAt;
 
 =======
+=======
+>>>>>>> origin/Member04
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
@@ -84,23 +91,34 @@ public class LearningPlan {
     @OrderBy("orderIndex ASC")
     private List<LearningPlanItem> items = new ArrayList<>();
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
 }

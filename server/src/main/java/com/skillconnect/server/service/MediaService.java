@@ -2,14 +2,18 @@ package com.skillconnect.server.service;
 
 import com.skillconnect.server.model.Media;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.skillconnect.server.model.Post;
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 
 import java.util.List;
 import java.util.Optional;
 
 public interface MediaService {
+<<<<<<< HEAD
 <<<<<<< HEAD
     
     Media saveMedia(Media media);
@@ -26,6 +30,8 @@ public interface MediaService {
     
     void deleteMediaByPost(Long postId);
 =======
+=======
+>>>>>>> origin/Member04
 
     Media storeMedia(Media media);
 
@@ -38,5 +44,8 @@ public interface MediaService {
     List<Media> findMediaByType(String mediaType);
     
     void deleteMedia(int mediaId);
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 }

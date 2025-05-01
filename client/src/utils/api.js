@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const API_URL = 'http://localhost:8080/api'; // Replace with your actual API URL
 =======
 const API_URL = 'https://api.example.com'; // Replace with your actual API URL
 >>>>>>> origin/Member02
+=======
+const API_URL = 'https://api.example.com'; // Replace with your actual API URL
+>>>>>>> origin/Member04
 
 // Helper function for making API requests
 const fetchApi = async (endpoint, options = {}) => {
@@ -25,12 +29,16 @@ const fetchApi = async (endpoint, options = {}) => {
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.log('API Request:', { endpoint, options });
     console.log('API Response:', response);
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     // Handle 401 Unauthorized
     if (response.status === 401) {
       localStorage.removeItem('token');
@@ -38,6 +46,7 @@ const fetchApi = async (endpoint, options = {}) => {
       return null;
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Check if the response has content before trying to parse JSON
     const contentType = response.headers.get('content-type');
@@ -60,6 +69,8 @@ const fetchApi = async (endpoint, options = {}) => {
       return { success: true };
     }
 =======
+=======
+>>>>>>> origin/Member04
     const data = await response.json();
     
     if (!response.ok) {
@@ -67,7 +78,10 @@ const fetchApi = async (endpoint, options = {}) => {
     }
     
     return data;
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
   } catch (error) {
     console.error('API Error:', error);
     throw error;
@@ -79,20 +93,28 @@ export const api = {
   // Auth
   login: (credentials) => 
 <<<<<<< HEAD
+<<<<<<< HEAD
     fetchApi('/users/login', { 
 =======
     fetchApi('/auth/login', { 
 >>>>>>> origin/Member02
+=======
+    fetchApi('/auth/login', { 
+>>>>>>> origin/Member04
       method: 'POST', 
       body: JSON.stringify(credentials) 
     }),
   
   register: (userData) => 
 <<<<<<< HEAD
+<<<<<<< HEAD
     fetchApi('/users/register', { 
 =======
     fetchApi('/auth/register', { 
 >>>>>>> origin/Member02
+=======
+    fetchApi('/auth/register', { 
+>>>>>>> origin/Member04
       method: 'POST', 
       body: JSON.stringify(userData) 
     }),
@@ -104,16 +126,22 @@ export const api = {
   
   // Users
 <<<<<<< HEAD
+<<<<<<< HEAD
   getCurrentUser: (email) => 
     fetchApi(`/users/email/${email}`),
 =======
   getCurrentUser: () => 
     fetchApi('/users/me'),
 >>>>>>> origin/Member02
+=======
+  getCurrentUser: () => 
+    fetchApi('/users/me'),
+>>>>>>> origin/Member04
   
   getUserProfile: (username) => 
     fetchApi(`/users/${username}`),
   
+<<<<<<< HEAD
 <<<<<<< HEAD
  // Update this method in your api.js file
   updateUserProfile: (userData) => 
@@ -123,12 +151,17 @@ export const api = {
     }),
 
 =======
+=======
+>>>>>>> origin/Member04
   updateUserProfile: (userData) => 
     fetchApi('/users/me', { 
       method: 'PUT', 
       body: JSON.stringify(userData) 
     }),
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
   
   followUser: (userId) => 
     fetchApi(`/users/${userId}/follow`, { 
@@ -153,6 +186,7 @@ export const api = {
       body: JSON.stringify(postData) 
     }),
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   // Add this method to your api.js file
   getUserPosts: (userId) => 
@@ -160,6 +194,8 @@ export const api = {
 
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
   
   updatePost: (postId, postData) => 
     fetchApi(`/posts/${postId}`, { 
@@ -184,6 +220,7 @@ export const api = {
   
   // Comments
   getComments: (postId) => 
+<<<<<<< HEAD
 <<<<<<< HEAD
     fetchApi(`/comments/post/${postId}`),
 
@@ -222,13 +259,18 @@ export const api = {
     fetchApi(`/likes/${postId}/user/${userId}`, { 
       method: 'DELETE' 
 =======
+=======
+>>>>>>> origin/Member04
     fetchApi(`/posts/${postId}/comments`),
   
   createComment: (postId, content) => 
     fetchApi(`/posts/${postId}/comments`, { 
       method: 'POST', 
       body: JSON.stringify({ content }) 
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     }),
   
   // Learning Plans

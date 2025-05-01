@@ -20,6 +20,7 @@ public class Media {
     private int mediaId;
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Column(name = "post_id", insertable = false, updatable = false)
     private int postId;
 =======
@@ -27,6 +28,11 @@ public class Media {
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 >>>>>>> origin/Member02
+=======
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
+>>>>>>> origin/Member04
     
     @Column(name = "file_path", nullable = false)
     private String filePath;
@@ -38,11 +44,14 @@ public class Media {
     private LocalDateTime createdAt;
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     
     @PrePersist
     protected void onCreate() {

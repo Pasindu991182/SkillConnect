@@ -1,9 +1,12 @@
 package com.skillconnect.server.service.serviceImpl;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.skillconnect.server.dto.LearningPlanDTO;
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 import com.skillconnect.server.model.LearningPlan;
 import com.skillconnect.server.model.LearningPlanItem;
 import com.skillconnect.server.model.User;
@@ -11,9 +14,12 @@ import com.skillconnect.server.repository.LearningPlanRepository;
 import com.skillconnect.server.repository.LearningPlanItemRepository;
 import com.skillconnect.server.repository.UserRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.skillconnect.server.service.LearningPlanItemService;
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 import com.skillconnect.server.service.LearningPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +28,17 @@ import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDateTime;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 =======
 import java.util.List;
 import java.util.Optional;
 >>>>>>> origin/Member02
+=======
+import java.util.List;
+import java.util.Optional;
+>>>>>>> origin/Member04
 
 @Log4j2
 @Service
@@ -38,15 +49,20 @@ public class LearningPlanServiceImpl implements LearningPlanService {
     private final LearningPlanItemRepository learningPlanItemRepository;
     private final UserRepository userRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final LearningPlanItemService itemService;
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Autowired
     public LearningPlanServiceImpl(
             LearningPlanRepository learningPlanRepository,
             LearningPlanItemRepository learningPlanItemRepository,
+<<<<<<< HEAD
 <<<<<<< HEAD
             UserRepository userRepository, LearningPlanItemService itemService) {
         this.learningPlanRepository = learningPlanRepository;
@@ -109,6 +125,8 @@ public class LearningPlanServiceImpl implements LearningPlanService {
 
 
 =======
+=======
+>>>>>>> origin/Member04
             UserRepository userRepository) {
         this.learningPlanRepository = learningPlanRepository;
         this.learningPlanItemRepository = learningPlanItemRepository;
@@ -147,7 +165,10 @@ public class LearningPlanServiceImpl implements LearningPlanService {
         return plans;
     }
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @Override
     public LearningPlan updateLearningPlan(LearningPlan learningPlan) {
         log.info("Updating learning plan with ID: {}", learningPlan.getPlanId());
@@ -156,20 +177,28 @@ public class LearningPlanServiceImpl implements LearningPlanService {
             throw new RuntimeException("Learning plan not found with id: " + learningPlan.getPlanId());
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
         
 >>>>>>> origin/Member02
+=======
+        
+>>>>>>> origin/Member04
         learningPlan.setUpdatedAt(LocalDateTime.now());
         LearningPlan updatedPlan = learningPlanRepository.save(learningPlan);
         log.info("Learning plan updated successfully: {}", learningPlan.getPlanId());
         return updatedPlan;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public void deleteLearningPlan(int planId) {
         log.info("Deleting learning plan with ID: {}", planId);
@@ -177,10 +206,14 @@ public class LearningPlanServiceImpl implements LearningPlanService {
         log.info("Learning plan deleted successfully: {}", planId);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public LearningPlanItem addItemToPlan(LearningPlanItem item, int planId) {
         log.info("Adding item to learning plan ID: {}", planId);
@@ -190,19 +223,26 @@ public class LearningPlanServiceImpl implements LearningPlanService {
                     return new RuntimeException("Learning plan not found with id: " + planId);
                 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         item.setLearningPlan(plan);
 
 =======
+=======
+>>>>>>> origin/Member04
         
         item.setLearningPlan(plan);
         // Note: The @PrePersist will handle setting createdAt and updatedAt
         
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         LearningPlanItem savedItem = learningPlanItemRepository.save(item);
         log.info("Item added successfully to plan with ID: {}", planId);
         return savedItem;
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     @Override
@@ -220,6 +260,9 @@ public class LearningPlanServiceImpl implements LearningPlanService {
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public void removeItemFromPlan(int itemId) {
         log.info("Removing item ID: {} from learning plan", itemId);

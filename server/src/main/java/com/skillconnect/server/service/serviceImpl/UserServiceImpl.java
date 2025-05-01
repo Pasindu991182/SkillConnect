@@ -1,6 +1,7 @@
 package com.skillconnect.server.service.serviceImpl;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.skillconnect.server.model.User;
 import com.skillconnect.server.repository.FollowRepository;
 import com.skillconnect.server.repository.UserRepository;
@@ -8,6 +9,8 @@ import com.skillconnect.server.security.JwtTokenUtil;
 import com.skillconnect.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 =======
+=======
+>>>>>>> origin/Member04
 import com.skillconnect.server.model.Follow;
 import com.skillconnect.server.model.User;
 import com.skillconnect.server.repository.FollowRepository;
@@ -15,11 +18,15 @@ import com.skillconnect.server.repository.UserRepository;
 import com.skillconnect.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.log4j.Log4j2;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +37,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 >>>>>>> origin/Member02
+=======
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+>>>>>>> origin/Member04
 
 @Log4j2
 @Service
@@ -38,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private final JwtTokenUtil jwtTokenUtil;
 
@@ -48,6 +61,8 @@ public class UserServiceImpl implements UserService {
         this.followRepository = followRepository;
         this.jwtTokenUtil = jwtTokenUtil;
 =======
+=======
+>>>>>>> origin/Member04
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -57,7 +72,10 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.followRepository = followRepository;
         this.passwordEncoder = passwordEncoder;
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         log.info("UserServiceImpl initialized");
     }
 
@@ -65,10 +83,15 @@ public class UserServiceImpl implements UserService {
     public User saveUser(User user) {
         log.info("Saving new user with email: {}", user.getEmail());
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         // Encode password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 >>>>>>> origin/Member02
+=======
+        // Encode password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+>>>>>>> origin/Member04
         User savedUser = userRepository.save(user);
         log.info("User saved successfully with ID: {}", savedUser.getUserId());
         return savedUser;
@@ -96,9 +119,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
 
     @Override
     public List<User> findAllUsers() {
@@ -110,7 +137,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/Member04
     public User updateUser(User user) {
         log.info("Updating user with ID: {}", user.getUserId());
         // Check if user exists
@@ -124,7 +154,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     public void deleteUser(int userId) {
         log.info("Deleting user with ID: {}", userId);
         userRepository.deleteById(userId);
@@ -148,6 +181,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+<<<<<<< HEAD
 <<<<<<< HEAD
     public User updateUser(int userid, User user) {
         log.info("Updating profile for user ID: {}", userid);
@@ -180,6 +214,8 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userRepository.save(userExist);
         log.info("Profile updated successfully for user ID: {}", userid);
 =======
+=======
+>>>>>>> origin/Member04
     public List<User> getFollowers(int userId) {
         log.debug("Getting followers for user ID: {}", userId);
         // Get all follows where the target user is the specified user
@@ -242,7 +278,10 @@ public class UserServiceImpl implements UserService {
         
         User updatedUser = userRepository.save(user);
         log.info("Profile updated successfully for user ID: {}", userId);
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         return updatedUser;
     }
 
@@ -255,8 +294,11 @@ public class UserServiceImpl implements UserService {
                     return new RuntimeException("User not found with id: " + userId);
                 });
 <<<<<<< HEAD
+<<<<<<< HEAD
         user.setPassword(newPassword);
 =======
+=======
+>>>>>>> origin/Member04
         
         // Verify current password
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
@@ -266,12 +308,16 @@ public class UserServiceImpl implements UserService {
         
         // Update password
         user.setPassword(passwordEncoder.encode(newPassword));
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         userRepository.save(user);
         
         log.info("Password changed successfully for user ID: {}", userId);
         return true;
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     @Override
@@ -295,4 +341,6 @@ public class UserServiceImpl implements UserService {
     }
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 }

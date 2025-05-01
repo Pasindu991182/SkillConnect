@@ -8,10 +8,15 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.ArrayList;
 import java.util.List;
 >>>>>>> origin/Member02
+=======
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> origin/Member04
 
 @Entity
 @Data
@@ -20,14 +25,19 @@ import java.util.List;
 @Table(name = "LearningPlanItems")
 public class LearningPlanItem {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private int itemId;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     @ManyToOne
@@ -41,6 +51,8 @@ public class LearningPlanItem {
     private boolean isComplete = false;
 
 =======
+=======
+>>>>>>> origin/Member04
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id", nullable = false)
@@ -86,5 +98,8 @@ public class LearningPlanItem {
         updatedAt = LocalDateTime.now();
     }
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 }

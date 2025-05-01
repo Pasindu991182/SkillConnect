@@ -3,10 +3,14 @@ package com.skillconnect.server.controller;
 import com.skillconnect.server.model.Like;
 import com.skillconnect.server.service.LikeService;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lombok.RequiredArgsConstructor;
 =======
 import lombok.AllArgsConstructor;
 >>>>>>> origin/Member02
+=======
+import lombok.AllArgsConstructor;
+>>>>>>> origin/Member04
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +20,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/likes")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 >>>>>>> origin/Member02
+=======
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+>>>>>>> origin/Member04
 public class LikeController {
 
     private final LikeService likeService;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @Autowired
     public LikeController(LikeService likeService) {
@@ -31,6 +40,8 @@ public class LikeController {
 
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @PostMapping("/{postId}/user/{userId}")
     public ResponseEntity<Like> likePost(@PathVariable int postId, @PathVariable int userId) {
         Like like = likeService.likePost(postId, userId);

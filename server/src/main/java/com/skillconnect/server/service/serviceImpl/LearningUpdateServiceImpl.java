@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.skillconnect.server.service.impl;
 =======
 package com.skillconnect.server.service.serviceImpl;
 >>>>>>> origin/Member02
+=======
+package com.skillconnect.server.service.serviceImpl;
+>>>>>>> origin/Member04
 
 import com.skillconnect.server.model.LearningPlan;
 import com.skillconnect.server.model.LearningUpdate;
@@ -47,6 +51,7 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
     
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public LearningUpdate createUpdate(LearningUpdate update, Long userId, Long planId) {
         log.info("Creating new learning update for user ID: {} and plan ID: {}", userId, planId);
         
@@ -55,6 +60,8 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
                     log.error("User not found with ID: {}", userId);
                     return new RuntimeException("User not found with id: " + userId);
 =======
+=======
+>>>>>>> origin/Member04
     public LearningUpdate createUpdate(LearningUpdate update, int planId) {
         log.info("Creating new learning update for user ID: {} and plan ID: {}", update.getUser().getUserId(), planId);
         
@@ -62,7 +69,10 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
                 .orElseThrow(() -> {
                     log.error("User not found with ID: {}", update.getUser().getUserId());
                     return new RuntimeException("User not found with id: " + update.getUser().getUserId());
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
                 });
         
         LearningPlan plan = learningPlanRepository.findById(planId)
@@ -71,6 +81,7 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
                     return new RuntimeException("Learning plan not found with id: " + planId);
                 });
         
+<<<<<<< HEAD
 <<<<<<< HEAD
         // Verify the plan belongs to the user
         if (!plan.getUser().getId().equals(userId)) {
@@ -85,6 +96,8 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
         LearningUpdate savedUpdate = learningUpdateRepository.save(update);
         log.info("Learning update created successfully with ID: {}", savedUpdate.getId());
 =======
+=======
+>>>>>>> origin/Member04
         // Verify the plan beints to the user
         if (plan.getUser().getUserId() != update.getUser().getUserId()) {
             log.error("Learning plan ID: {} does not beint to user ID: {}", planId, update.getUser().getUserId());
@@ -96,11 +109,15 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
         
         LearningUpdate savedUpdate = learningUpdateRepository.save(update);
         log.info("Learning update created successfully with ID: {}", savedUpdate.getUpdateId());
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         return savedUpdate;
     }
     
     @Override
+<<<<<<< HEAD
 <<<<<<< HEAD
     public LearningUpdate createUpdateFromTemplate(Long templateId, Long userId, Long planId, String content) {
         log.info("Creating learning update from template ID: {} for user ID: {} and plan ID: {}", 
@@ -140,6 +157,8 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
         LearningUpdate savedUpdate = learningUpdateRepository.save(update);
         log.info("Learning update created from template successfully with ID: {}", savedUpdate.getId());
 =======
+=======
+>>>>>>> origin/Member04
     public LearningUpdate createUpdateFromTemplate(UpdateTemplate template, LearningPlan plan) {
         log.info("Creating learning update from template ID: {} for user ID: {} and plan ID: {}", 
                 template.getTemplateId(), plan.getUser().getUserId(), plan.getPlanId());
@@ -175,21 +194,29 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
         
         LearningUpdate savedUpdate = learningUpdateRepository.save(update);
         log.info("Learning update created from template successfully with ID: {}", savedUpdate.getUpdateId());
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         return savedUpdate;
     }
     
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Optional<LearningUpdate> findById(Long updateId) {
 =======
     public Optional<LearningUpdate> findById(int updateId) {
 >>>>>>> origin/Member02
+=======
+    public Optional<LearningUpdate> findById(int updateId) {
+>>>>>>> origin/Member04
         log.debug("Finding learning update by ID: {}", updateId);
         return learningUpdateRepository.findById(updateId);
     }
     
     @Override
+<<<<<<< HEAD
 <<<<<<< HEAD
     public List<LearningUpdate> findUpdatesByUserId(Long userId) {
         log.debug("Finding learning updates for user ID: {}", userId);
@@ -199,11 +226,17 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
         log.debug("Finding learning updates for user ID: {}", userId);
         List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserId(userId);
 >>>>>>> origin/Member02
+=======
+    public List<LearningUpdate> findUpdatesByUserId(int userId) {
+        log.debug("Finding learning updates for user ID: {}", userId);
+        List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserId(userId);
+>>>>>>> origin/Member04
         log.debug("Found {} updates for user ID: {}", updates.size(), userId);
         return updates;
     }
     
     @Override
+<<<<<<< HEAD
 <<<<<<< HEAD
     public List<LearningUpdate> findUpdatesByPlanId(Long planId) {
         log.debug("Finding learning updates for plan ID: {}", planId);
@@ -219,34 +252,48 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
             log.error("Learning update not found with ID: {}", update.getId());
             throw new RuntimeException("Learning update not found with id: " + update.getId());
 =======
+=======
+>>>>>>> origin/Member04
     public LearningUpdate updateLearningUpdate(LearningUpdate update) {
         log.info("Updating learning update with ID: {}", update.getUpdateId());
         if (!learningUpdateRepository.existsById(update.getUpdateId())) {
             log.error("Learning update not found with ID: {}", update.getUpdateId());
             throw new RuntimeException("Learning update not found with id: " + update.getUpdateId());
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
         }
         
         update.setUpdatedAt(LocalDateTime.now());
         LearningUpdate updatedUpdate = learningUpdateRepository.save(update);
 <<<<<<< HEAD
+<<<<<<< HEAD
         log.info("Learning update updated successfully: {}", update.getId());
 =======
         log.info("Learning update updated successfully: {}", update.getUpdateId());
 >>>>>>> origin/Member02
+=======
+        log.info("Learning update updated successfully: {}", update.getUpdateId());
+>>>>>>> origin/Member04
         return updatedUpdate;
     }
     
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void deleteUpdate(Long updateId) {
 =======
     public void deleteUpdate(int updateId) {
 >>>>>>> origin/Member02
+=======
+    public void deleteUpdate(int updateId) {
+>>>>>>> origin/Member04
         log.info("Deleting learning update with ID: {}", updateId);
         learningUpdateRepository.deleteById(updateId);
         log.info("Learning update deleted successfully: {}", updateId);
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
     
     @Override
@@ -283,4 +330,7 @@ public class LearningUpdateServiceImpl implements LearningUpdateService {
 =======
 
 >>>>>>> origin/Member02
+=======
+
+>>>>>>> origin/Member04
 }

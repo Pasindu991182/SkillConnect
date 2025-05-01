@@ -2,14 +2,18 @@ package com.skillconnect.server.service;
 
 import com.skillconnect.server.model.UpdateTemplate;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.skillconnect.server.model.User;
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UpdateTemplateService {
+<<<<<<< HEAD
 <<<<<<< HEAD
     
     UpdateTemplate saveUpdateTemplate(UpdateTemplate updateTemplate);
@@ -24,6 +28,8 @@ public interface UpdateTemplateService {
     
     void deleteUpdateTemplate(Long templateId);
 =======
+=======
+>>>>>>> origin/Member04
 
     UpdateTemplate createTemplate(UpdateTemplate template);
 
@@ -34,5 +40,8 @@ public interface UpdateTemplateService {
     UpdateTemplate updateTemplate(UpdateTemplate template);
 
     void deleteTemplate(int templateId);
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 }

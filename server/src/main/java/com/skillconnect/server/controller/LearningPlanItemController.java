@@ -3,10 +3,14 @@ package com.skillconnect.server.controller;
 import com.skillconnect.server.model.LearningPlanItem;
 import com.skillconnect.server.service.LearningPlanItemService;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lombok.RequiredArgsConstructor;
 =======
 import lombok.AllArgsConstructor;
 >>>>>>> origin/Member02
+=======
+import lombok.AllArgsConstructor;
+>>>>>>> origin/Member04
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +20,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/learning-plan-items")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 >>>>>>> origin/Member02
+=======
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+>>>>>>> origin/Member04
 public class LearningPlanItemController {
 
     private final LearningPlanItemService itemService;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @Autowired
     public LearningPlanItemController(LearningPlanItemService itemService) {
@@ -31,6 +40,8 @@ public class LearningPlanItemController {
 
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @PostMapping
     public ResponseEntity<LearningPlanItem> createItem(@RequestBody LearningPlanItem item) {
         LearningPlanItem createdItem = itemService.createItem(item);

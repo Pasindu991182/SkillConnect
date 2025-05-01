@@ -22,10 +22,14 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Autowired
     public PostServiceImpl(PostRepository postRepository, UserRepository userRepository) {
         this.postRepository = postRepository;
@@ -33,10 +37,14 @@ public class PostServiceImpl implements PostService {
         log.info("PostServiceImpl initialized");
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public Post createPost(Post post) {
         log.info("Creating new post for user ID: {}", post.getUser().getUserId());
@@ -46,6 +54,7 @@ public class PostServiceImpl implements PostService {
                     return new RuntimeException("User not found with id: " + post.getUser().getUserId());
                 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         post.setUser(user);
 
@@ -56,6 +65,8 @@ public class PostServiceImpl implements PostService {
     }
 
 =======
+=======
+>>>>>>> origin/Member04
         
         post.setUser(user);
         post.setCreatedAt(LocalDateTime.now());
@@ -65,17 +76,24 @@ public class PostServiceImpl implements PostService {
         return savedPost;
     }
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @Override
     public Optional<Post> findById(int postId) {
         log.debug("Finding post by ID: {}", postId);
         return postRepository.findById(postId);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public List<Post> findPostsByUserId(int userId) {
         log.debug("Finding posts for user ID: {}", userId);
@@ -84,10 +102,14 @@ public class PostServiceImpl implements PostService {
         return posts;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public List<Post> findAllPosts() {
         log.debug("Retrieving all posts");
@@ -96,10 +118,14 @@ public class PostServiceImpl implements PostService {
         return posts;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public Post updatePost(Post post) {
         log.info("Updating post with ID: {}", post.getPostId());
@@ -112,10 +138,14 @@ public class PostServiceImpl implements PostService {
         return updatedPost;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Override
     public void deletePost(int postId) {
         log.info("Deleting post with ID: {}", postId);

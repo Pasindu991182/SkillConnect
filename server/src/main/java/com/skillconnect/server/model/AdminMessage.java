@@ -14,14 +14,19 @@ import java.time.LocalDateTime;
 @Table(name = "AdminMessages")
 public class AdminMessage {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
     private int messageId;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     @OneToOne
@@ -38,6 +43,8 @@ public class AdminMessage {
     private LocalDateTime createdAt;
 
 =======
+=======
+>>>>>>> origin/Member04
     
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
@@ -52,13 +59,20 @@ public class AdminMessage {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> origin/Member02
+=======
+
+>>>>>>> origin/Member04
 }

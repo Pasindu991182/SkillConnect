@@ -7,9 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.List;
 >>>>>>> origin/Member02
+=======
+import java.util.List;
+>>>>>>> origin/Member04
 
 @Entity
 @Data
@@ -18,14 +22,19 @@ import java.util.List;
 @Table(name = "Users")
 public class User {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int userId;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     @Column(name = "first_name", nullable = false)
@@ -53,6 +62,8 @@ public class User {
     private String role;
 
 =======
+=======
+>>>>>>> origin/Member04
     
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -94,5 +105,8 @@ public class User {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 }

@@ -14,15 +14,20 @@ import java.time.LocalDateTime;
 @Table(name = "Follows")
 public class Follow {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "follow_id")
     private int followId;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -36,6 +41,8 @@ public class Follow {
     private LocalDateTime createdAt;
 
 =======
+=======
+>>>>>>> origin/Member04
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "follower_id", nullable = false)
     private User follower;
@@ -47,7 +54,10 @@ public class Follow {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

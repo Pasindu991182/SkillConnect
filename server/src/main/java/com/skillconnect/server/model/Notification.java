@@ -20,11 +20,14 @@ public class Notification {
     private int notificationId;
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
 =======
+=======
+>>>>>>> origin/Member04
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -44,7 +47,10 @@ public class Notification {
     @JoinColumn(name = "comment_id")
     private Comment comment;
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
     
@@ -59,6 +65,7 @@ public class Notification {
         createdAt = LocalDateTime.now();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public Notification(User user, String content) {
         this.user = user;
@@ -66,4 +73,6 @@ public class Notification {
     }
 =======
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
 }

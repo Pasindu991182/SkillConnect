@@ -1,6 +1,11 @@
 import React from 'react';
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '../src/hooks/useAuth';
+=======
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from '../src/contexts/AuthContext';
+>>>>>>> origin/Member04
 import { ThemeProvider } from '../src/contexts/ThemeContext';
 
 // Pages
@@ -18,11 +23,18 @@ const App = () => {
   return (
     <ThemeProvider>
       <AuthProvider>
+<<<<<<< HEAD
       
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
+=======
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+>>>>>>> origin/Member04
           <Route path="/discover" element={<Discover />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/plan" element={<LearningPlan />} />
@@ -30,7 +42,10 @@ const App = () => {
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
+<<<<<<< HEAD
        
+=======
+>>>>>>> origin/Member04
       </AuthProvider>
     </ThemeProvider>
   );

@@ -15,14 +15,19 @@ import java.util.List;
 @Table(name = "Posts")
 public class Post {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private int postId;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     @ManyToOne
@@ -52,6 +57,8 @@ public class Post {
     private LearningPlan learningPlan;
 
 =======
+=======
+>>>>>>> origin/Member04
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -83,17 +90,24 @@ public class Post {
     @JoinColumn(name = "learning_plan_id")
     private LearningPlan learningPlan;
     
+<<<<<<< HEAD
 >>>>>>> origin/Member02
+=======
+>>>>>>> origin/Member04
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> origin/Member02
+=======
+    
+>>>>>>> origin/Member04
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
