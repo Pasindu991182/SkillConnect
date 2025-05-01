@@ -6,7 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+<<<<<<< HEAD
 public interface LearningUpdateRepository extends JpaRepository<LearningUpdate, int> {
     List<LearningUpdate> findByUser(User user);
     List<LearningUpdate> findByUserOrderByCreatedAtDesc(User user);
+=======
+public interface LearningUpdateRepository extends JpaRepository<LearningUpdate, Integer> {
+    List<LearningUpdate> findByUser(User user);
+    List<LearningUpdate> findByUser_UserId(int userId);
+>>>>>>> origin/Member02
 }

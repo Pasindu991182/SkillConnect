@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
   const { login, error } = useAuth();
+=======
+import { Link } from 'react-router-dom';
+
+const Login = () => {
+>>>>>>> origin/Member02
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     rememberMe: false
   });
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState(null);
+=======
+>>>>>>> origin/Member02
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -21,6 +30,7 @@ const Login = () => {
     }));
   };
   
+<<<<<<< HEAD
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -44,6 +54,12 @@ const Login = () => {
     } finally {
       setIsLoading(false);
     }
+=======
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Login attempt with:', formData);
+    // Authentication logic would go here
+>>>>>>> origin/Member02
   };
   
   return (

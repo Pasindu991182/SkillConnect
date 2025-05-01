@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const API_URL = 'http://localhost:8080/api'; // Replace with your actual API URL
+=======
+const API_URL = 'https://api.example.com'; // Replace with your actual API URL
+>>>>>>> origin/Member02
 
 // Helper function for making API requests
 const fetchApi = async (endpoint, options = {}) => {
@@ -20,9 +24,13 @@ const fetchApi = async (endpoint, options = {}) => {
 
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
+<<<<<<< HEAD
     console.log('API Request:', { endpoint, options });
     console.log('API Response:', response);
 
+=======
+    
+>>>>>>> origin/Member02
     // Handle 401 Unauthorized
     if (response.status === 401) {
       localStorage.removeItem('token');
@@ -30,6 +38,7 @@ const fetchApi = async (endpoint, options = {}) => {
       return null;
     }
     
+<<<<<<< HEAD
     // Check if the response has content before trying to parse JSON
     const contentType = response.headers.get('content-type');
     if (contentType && contentType.includes('application/json')) {
@@ -50,6 +59,15 @@ const fetchApi = async (endpoint, options = {}) => {
       
       return { success: true };
     }
+=======
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.message || 'Something went wrong');
+    }
+    
+    return data;
+>>>>>>> origin/Member02
   } catch (error) {
     console.error('API Error:', error);
     throw error;
@@ -60,13 +78,21 @@ const fetchApi = async (endpoint, options = {}) => {
 export const api = {
   // Auth
   login: (credentials) => 
+<<<<<<< HEAD
     fetchApi('/users/login', { 
+=======
+    fetchApi('/auth/login', { 
+>>>>>>> origin/Member02
       method: 'POST', 
       body: JSON.stringify(credentials) 
     }),
   
   register: (userData) => 
+<<<<<<< HEAD
     fetchApi('/users/register', { 
+=======
+    fetchApi('/auth/register', { 
+>>>>>>> origin/Member02
       method: 'POST', 
       body: JSON.stringify(userData) 
     }),
@@ -77,12 +103,18 @@ export const api = {
     }),
   
   // Users
+<<<<<<< HEAD
   getCurrentUser: (email) => 
     fetchApi(`/users/email/${email}`),
+=======
+  getCurrentUser: () => 
+    fetchApi('/users/me'),
+>>>>>>> origin/Member02
   
   getUserProfile: (username) => 
     fetchApi(`/users/${username}`),
   
+<<<<<<< HEAD
  // Update this method in your api.js file
   updateUserProfile: (userData) => 
     fetchApi(`/users/${userData.userId}/update`, { 
@@ -90,6 +122,13 @@ export const api = {
       body: JSON.stringify(userData) 
     }),
 
+=======
+  updateUserProfile: (userData) => 
+    fetchApi('/users/me', { 
+      method: 'PUT', 
+      body: JSON.stringify(userData) 
+    }),
+>>>>>>> origin/Member02
   
   followUser: (userId) => 
     fetchApi(`/users/${userId}/follow`, { 
@@ -113,11 +152,14 @@ export const api = {
       method: 'POST', 
       body: JSON.stringify(postData) 
     }),
+<<<<<<< HEAD
 
   // Add this method to your api.js file
   getUserPosts: (userId) => 
     fetchApi(`/posts/user/${userId}`),
 
+=======
+>>>>>>> origin/Member02
   
   updatePost: (postId, postData) => 
     fetchApi(`/posts/${postId}`, { 
@@ -142,6 +184,7 @@ export const api = {
   
   // Comments
   getComments: (postId) => 
+<<<<<<< HEAD
     fetchApi(`/comments/post/${postId}`),
 
   createComment: (commentData) => 
@@ -178,6 +221,14 @@ export const api = {
   unlikePost: (postId, userId) => 
     fetchApi(`/likes/${postId}/user/${userId}`, { 
       method: 'DELETE' 
+=======
+    fetchApi(`/posts/${postId}/comments`),
+  
+  createComment: (postId, content) => 
+    fetchApi(`/posts/${postId}/comments`, { 
+      method: 'POST', 
+      body: JSON.stringify({ content }) 
+>>>>>>> origin/Member02
     }),
   
   // Learning Plans

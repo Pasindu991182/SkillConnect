@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.skillconnect.server.service.impl;
 
 import com.skillconnect.server.model.Media;
@@ -6,22 +7,38 @@ import com.skillconnect.server.model.User;
 import com.skillconnect.server.repository.MediaRepository;
 import com.skillconnect.server.repository.PostRepository;
 import com.skillconnect.server.repository.UserRepository;
+=======
+package com.skillconnect.server.service.serviceImpl;
+
+import com.skillconnect.server.model.Media;
+import com.skillconnect.server.model.Post;
+import com.skillconnect.server.repository.MediaRepository;
+import com.skillconnect.server.repository.PostRepository;
+>>>>>>> origin/Member02
 import com.skillconnect.server.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartFile;
+=======
+>>>>>>> origin/Member02
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+<<<<<<< HEAD
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+=======
+import java.util.List;
+import java.util.Optional;
+>>>>>>> origin/Member02
 
 @Log4j2
 @Service
@@ -30,12 +47,16 @@ public class MediaServiceImpl implements MediaService {
 
     private final MediaRepository mediaRepository;
     private final PostRepository postRepository;
+<<<<<<< HEAD
     private final UserRepository userRepository;
     private final Path fileStorageLocation;
+=======
+>>>>>>> origin/Member02
     
     @Autowired
     public MediaServiceImpl(
             MediaRepository mediaRepository,
+<<<<<<< HEAD
             PostRepository postRepository,
             UserRepository userRepository,
             String uploadDir) {
@@ -53,11 +74,18 @@ public class MediaServiceImpl implements MediaService {
             log.error("Could not create the directory where the uploaded files will be stored", ex);
             throw new RuntimeException("Could not create the directory where the uploaded files will be stored", ex);
         }
+=======
+            PostRepository postRepository) {
+        this.mediaRepository = mediaRepository;
+        this.postRepository = postRepository;
+        
+>>>>>>> origin/Member02
         
         log.info("MediaServiceImpl initialized");
     }
     
     @Override
+<<<<<<< HEAD
     public Media storeMedia(MultipartFile file, Long userId, String mediaType) {
         log.info("Storing media file for user ID: {}, media type: {}", userId, mediaType);
         
@@ -105,6 +133,25 @@ public class MediaServiceImpl implements MediaService {
     
     @Override
     public Media attachMediaToPost(Long mediaId, Long postId) {
+=======
+    public Media storeMedia(Media media) {
+        log.info("Storing media for post ID: {}, media type: {}", media.getPost().getPostId(), media.getMediaType());
+    
+        postRepository.findByPostId(media.getPost().getPostId())
+                .orElseThrow(() -> {
+                    log.error("Post not found with ID: {}", media.getPost().getPostId());
+                    return new RuntimeException("Post not found with id: " + media.getPost().getPostId());
+                });
+    
+                Media savedMedia = mediaRepository.save(media);
+                log.info("Media stored successfully with ID: {}", savedMedia.getMediaId());
+                return savedMedia;
+    }
+    
+    
+    @Override
+    public Media attachMediaToPost(int mediaId, int postId) {
+>>>>>>> origin/Member02
         log.info("Attaching media ID: {} to post ID: {}", mediaId, postId);
         
         Media media = mediaRepository.findById(mediaId)
@@ -126,12 +173,17 @@ public class MediaServiceImpl implements MediaService {
     }
     
     @Override
+<<<<<<< HEAD
     public Optional<Media> findById(Long mediaId) {
+=======
+    public Optional<Media> findById(int mediaId) {
+>>>>>>> origin/Member02
         log.debug("Finding media by ID: {}", mediaId);
         return mediaRepository.findById(mediaId);
     }
     
     @Override
+<<<<<<< HEAD
     public List<Media> findMediaByUserId(Long userId) {
         log.debug("Finding media for user ID: {}", userId);
         List<Media> mediaList = mediaRepository.findByUserId(userId);
@@ -141,6 +193,9 @@ public class MediaServiceImpl implements MediaService {
     
     @Override
     public List<Media> findMediaByPostId(Long postId) {
+=======
+    public List<Media> findMediaByPostId(int postId) {
+>>>>>>> origin/Member02
         log.debug("Finding media for post ID: {}", postId);
         List<Media> mediaList = mediaRepository.findByPostId(postId);
         log.debug("Found {} media items for post ID: {}", mediaList.size(), postId);
@@ -148,7 +203,11 @@ public class MediaServiceImpl implements MediaService {
     }
     
     @Override
+<<<<<<< HEAD
     public void deleteMedia(Long mediaId) {
+=======
+    public void deleteMedia(int mediaId) {
+>>>>>>> origin/Member02
         log.info("Deleting media with ID: {}", mediaId);
         
         Media media = mediaRepository.findById(mediaId)
@@ -178,6 +237,7 @@ public class MediaServiceImpl implements MediaService {
         List<Media> mediaList = mediaRepository.findByMediaType(mediaType);
         log.debug("Found {} media items of type: {}", mediaList.size(), mediaType);
         return mediaList;
+<<<<<<< HEAD
     }
     
     @Override
@@ -231,4 +291,7 @@ public class MediaServiceImpl implements MediaService {
         log.info("Media metadata updated successfully for ID: {}", mediaId);
         return updatedMedia;
     }
+=======
+    } 
+>>>>>>> origin/Member02
 }

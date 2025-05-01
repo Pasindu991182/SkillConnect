@@ -2,27 +2,43 @@ package com.skillconnect.server.controller;
 
 import com.skillconnect.server.model.User;
 import com.skillconnect.server.service.UserService;
+<<<<<<< HEAD
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+=======
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> origin/Member02
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
+=======
+
+@RestController
+@RequestMapping("/api/users")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+>>>>>>> origin/Member02
 public class UserController {
 
     private final UserService userService;
 
+<<<<<<< HEAD
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("/register")
+=======
+    @PostMapping
+>>>>>>> origin/Member02
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.saveUser(user));
     }
@@ -39,6 +55,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findByEmail(email));
     }
 
+<<<<<<< HEAD
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Map<String, Object> response = userService.login(user);
@@ -49,11 +66,21 @@ public class UserController {
         }
     }
 
+=======
+>>>>>>> origin/Member02
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
+<<<<<<< HEAD
+=======
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(user));
+    }
+
+>>>>>>> origin/Member02
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
@@ -70,11 +97,32 @@ public class UserController {
         return ResponseEntity.ok(userService.existsByUsername(username));
     }
 
+<<<<<<< HEAD
     @PutMapping("/{id}/update")
     public ResponseEntity<User> updateUser(
             @PathVariable int id,
             @RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
+=======
+    @GetMapping("/{id}/followers")
+    public ResponseEntity<List<User>> getFollowers(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getFollowers(id));
+    }
+
+    @GetMapping("/{id}/following")
+    public ResponseEntity<List<User>> getFollowing(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getFollowing(id));
+    }
+
+    @PutMapping("/{id}/profile")
+    public ResponseEntity<User> updateProfile(
+            @PathVariable int id,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam(required = false) String bio,
+            @RequestParam(required = false) String profileImage) {
+        return ResponseEntity.ok(userService.updateProfile(id, firstName, lastName, bio, profileImage));
+>>>>>>> origin/Member02
     }
 
     @PutMapping("/{id}/change-password")

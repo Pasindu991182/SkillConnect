@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 package com.skillconnect.server.service.impl;
 
 import com.skillconnect.server.model.UpdateTemplate;
 import com.skillconnect.server.model.User;
 import com.skillconnect.server.repository.UpdateTemplateRepository;
 import com.skillconnect.server.repository.UserRepository;
+=======
+package com.skillconnect.server.service.serviceImpl;
+
+import com.skillconnect.server.model.UpdateTemplate;
+import com.skillconnect.server.repository.UpdateTemplateRepository;
+>>>>>>> origin/Member02
 import com.skillconnect.server.service.UpdateTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +26,7 @@ import java.util.Optional;
 public class UpdateTemplateServiceImpl implements UpdateTemplateService {
 
     private final UpdateTemplateRepository updateTemplateRepository;
+<<<<<<< HEAD
     private final UserRepository userRepository;
     
     @Autowired
@@ -27,10 +35,18 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
             UserRepository userRepository) {
         this.updateTemplateRepository = updateTemplateRepository;
         this.userRepository = userRepository;
+=======
+    
+    @Autowired
+    public UpdateTemplateServiceImpl(
+            UpdateTemplateRepository updateTemplateRepository) {
+        this.updateTemplateRepository = updateTemplateRepository;
+>>>>>>> origin/Member02
         log.info("UpdateTemplateServiceImpl initialized");
     }
     
     @Override
+<<<<<<< HEAD
     public UpdateTemplate createTemplate(UpdateTemplate template, Long creatorId) {
         log.info("Creating new update template by creator ID: {}", creatorId);
         
@@ -45,11 +61,22 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
         
         UpdateTemplate savedTemplate = updateTemplateRepository.save(template);
         log.info("Update template created successfully with ID: {}", savedTemplate.getId());
+=======
+    public UpdateTemplate createTemplate(UpdateTemplate template) {
+        log.info("Creating new update template by creator ID: {}");
+        
+        UpdateTemplate savedTemplate = updateTemplateRepository.save(template);
+        log.info("Update template created successfully with ID: {}", savedTemplate.getTemplateId());
+>>>>>>> origin/Member02
         return savedTemplate;
     }
     
     @Override
+<<<<<<< HEAD
     public Optional<UpdateTemplate> findById(Long templateId) {
+=======
+    public Optional<UpdateTemplate> findById(int templateId) {
+>>>>>>> origin/Member02
         log.debug("Finding update template by ID: {}", templateId);
         return updateTemplateRepository.findById(templateId);
     }
@@ -63,6 +90,7 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
     }
     
     @Override
+<<<<<<< HEAD
     public List<UpdateTemplate> findTemplatesByCreatorId(Long creatorId) {
         log.debug("Finding update templates by creator ID: {}", creatorId);
         List<UpdateTemplate> templates = updateTemplateRepository.findByCreatorId(creatorId);
@@ -80,15 +108,31 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
         
         UpdateTemplate updatedTemplate = updateTemplateRepository.save(template);
         log.info("Update template updated successfully: {}", template.getId());
+=======
+    public UpdateTemplate updateTemplate(UpdateTemplate template) {
+        log.info("Updating update template with ID: {}", template.getTemplateId());
+        if (!updateTemplateRepository.existsById(template.getTemplateId())) {
+            log.error("Update template not found with ID: {}", template.getTemplateId());
+            throw new RuntimeException("Update template not found with id: " + template.getTemplateId());
+        }
+        
+        UpdateTemplate updatedTemplate = updateTemplateRepository.save(template);
+        log.info("Update template updated successfully: {}", template.getTemplateId());
+>>>>>>> origin/Member02
         return updatedTemplate;
     }
     
     @Override
+<<<<<<< HEAD
     public void deleteTemplate(Long templateId) {
+=======
+    public void deleteTemplate(int templateId) {
+>>>>>>> origin/Member02
         log.info("Deleting update template with ID: {}", templateId);
         updateTemplateRepository.deleteById(templateId);
         log.info("Update template deleted successfully: {}", templateId);
     }
+<<<<<<< HEAD
     
     @Override
     public List<UpdateTemplate> findPublicTemplates() {
@@ -161,4 +205,6 @@ public class UpdateTemplateServiceImpl implements UpdateTemplateService {
         log.info("Template usage count incremented for ID: {}", templateId);
         return updatedTemplate;
     }
+=======
+>>>>>>> origin/Member02
 }

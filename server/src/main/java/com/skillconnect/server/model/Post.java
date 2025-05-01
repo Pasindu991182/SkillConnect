@@ -14,11 +14,16 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "Posts")
 public class Post {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/Member02
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private int postId;
+<<<<<<< HEAD
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -46,12 +51,49 @@ public class Post {
     @JoinColumn(name = "learning_plan_id")
     private LearningPlan learningPlan;
 
+=======
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+    
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+    
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Media> mediaList;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "learning_update_id")
+    private LearningUpdate learningUpdate;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "learning_plan_id")
+    private LearningPlan learningPlan;
+    
+>>>>>>> origin/Member02
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/Member02
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

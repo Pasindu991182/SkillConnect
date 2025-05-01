@@ -13,11 +13,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "AdminMessages")
 public class AdminMessage {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/Member02
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
     private int messageId;
+<<<<<<< HEAD
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -32,8 +37,28 @@ public class AdminMessage {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
+=======
+    
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
+    private User admin;
+    
+    @Column(name = "title", nullable = false, length = 100)
+    private String title;
+    
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    private String content;
+    
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+    
+>>>>>>> origin/Member02
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Member02
 }
