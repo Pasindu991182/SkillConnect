@@ -6,35 +6,49 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Comments")
-public class Comment {
+@Table(name = "Posts")
+public class Post {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
-    private int commentId;
+    @Column(name = "post_id")
+    private int postId;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
-    private Post post;
-    
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
-    private String content;
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
     
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Media> mediaList;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "learning_update_id")
+    private LearningUpdate learningUpdate;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "learning_plan_id")
+    private LearningPlan learningPlan;
     
     @PrePersist
     protected void onCreate() {
@@ -46,5 +60,4 @@ public class Comment {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-    
 }

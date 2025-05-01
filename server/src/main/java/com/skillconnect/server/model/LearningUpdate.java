@@ -11,24 +11,26 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Comments")
-public class Comment {
+@Table(name = "Learning_Updates")
+public class LearningUpdate {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
-    private int commentId;
+    @Column(name = "update_id")
+    private int updateId;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
+    @OneToOne(mappedBy = "learning")
     private Post post;
     
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
-    private String content;
+    @Column(name = "title", nullable = false)
+    private String title;
+    
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
     
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -46,5 +48,4 @@ public class Comment {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-    
 }
