@@ -1,12 +1,4 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "java.configuration.updateBuildConfiguration": "interactive",
     "java.compile.nullAnalysis.mode": "automatic"
-=======
-    "java.configuration.updateBuildConfiguration": "interactive"
->>>>>>> origin/Member02
-=======
-    "java.configuration.updateBuildConfiguration": "interactive"
->>>>>>> origin/Member04
 }

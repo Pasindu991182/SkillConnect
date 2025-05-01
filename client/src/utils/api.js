@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 const API_URL = 'http://localhost:8080/api'; // Replace with your actual API URL
-=======
-const API_URL = 'https://api.example.com'; // Replace with your actual API URL
->>>>>>> origin/Member02
-=======
-const API_URL = 'https://api.example.com'; // Replace with your actual API URL
->>>>>>> origin/Member04
 
 // Helper function for making API requests
 const fetchApi = async (endpoint, options = {}) => {
@@ -28,17 +20,9 @@ const fetchApi = async (endpoint, options = {}) => {
 
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
-<<<<<<< HEAD
-<<<<<<< HEAD
-    console.log('API Request:', { endpoint, options });
-    console.log('API Response:', response);
+    // console.log('API Request:', { endpoint, options });
+    // console.log('API Response:', response);
 
-=======
-    
->>>>>>> origin/Member02
-=======
-    
->>>>>>> origin/Member04
     // Handle 401 Unauthorized
     if (response.status === 401) {
       localStorage.removeItem('token');
@@ -46,8 +30,6 @@ const fetchApi = async (endpoint, options = {}) => {
       return null;
     }
     
-<<<<<<< HEAD
-<<<<<<< HEAD
     // Check if the response has content before trying to parse JSON
     const contentType = response.headers.get('content-type');
     if (contentType && contentType.includes('application/json')) {
@@ -68,20 +50,6 @@ const fetchApi = async (endpoint, options = {}) => {
       
       return { success: true };
     }
-=======
-=======
->>>>>>> origin/Member04
-    const data = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(data.message || 'Something went wrong');
-    }
-    
-    return data;
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
   } catch (error) {
     console.error('API Error:', error);
     throw error;
@@ -92,29 +60,13 @@ const fetchApi = async (endpoint, options = {}) => {
 export const api = {
   // Auth
   login: (credentials) => 
-<<<<<<< HEAD
-<<<<<<< HEAD
     fetchApi('/users/login', { 
-=======
-    fetchApi('/auth/login', { 
->>>>>>> origin/Member02
-=======
-    fetchApi('/auth/login', { 
->>>>>>> origin/Member04
       method: 'POST', 
       body: JSON.stringify(credentials) 
     }),
   
   register: (userData) => 
-<<<<<<< HEAD
-<<<<<<< HEAD
     fetchApi('/users/register', { 
-=======
-    fetchApi('/auth/register', { 
->>>>>>> origin/Member02
-=======
-    fetchApi('/auth/register', { 
->>>>>>> origin/Member04
       method: 'POST', 
       body: JSON.stringify(userData) 
     }),
@@ -125,53 +77,58 @@ export const api = {
     }),
   
   // Users
-<<<<<<< HEAD
-<<<<<<< HEAD
   getCurrentUser: (email) => 
     fetchApi(`/users/email/${email}`),
-=======
-  getCurrentUser: () => 
-    fetchApi('/users/me'),
->>>>>>> origin/Member02
-=======
-  getCurrentUser: () => 
-    fetchApi('/users/me'),
->>>>>>> origin/Member04
   
   getUserProfile: (username) => 
     fetchApi(`/users/${username}`),
   
-<<<<<<< HEAD
-<<<<<<< HEAD
- // Update this method in your api.js file
+ 
   updateUserProfile: (userData) => 
     fetchApi(`/users/${userData.userId}/update`, { 
       method: 'PUT', 
       body: JSON.stringify(userData) 
     }),
 
-=======
-=======
->>>>>>> origin/Member04
-  updateUserProfile: (userData) => 
-    fetchApi('/users/me', { 
-      method: 'PUT', 
-      body: JSON.stringify(userData) 
-    }),
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
+  searchUsers: (query) => 
+    fetchApi(`/users/search/${encodeURIComponent(query)}`),
+
   
-  followUser: (userId) => 
-    fetchApi(`/users/${userId}/follow`, { 
-      method: 'POST' 
+  getUserById: (userId) => 
+    fetchApi(`/users/${userId}`),
+
+  getUsers: () => 
+    fetchApi(`/users`),
+
+
+  
+  // Followers/Following
+  getFollowerCount: (userId) =>
+    fetchApi(`/follow/${userId}/followers/count`),
+  
+  getFollowingCount: (userId) =>
+    fetchApi(`/follow/${userId}/following/count`),
+  
+  followUser: (followerId, userId) =>
+    fetchApi(`/follow`, {
+      method: 'POST',
+      body: JSON.stringify({
+        follower: { userId: followerId },
+        user: { userId: userId }
+      })
     }),
   
-  unfollowUser: (userId) => 
-    fetchApi(`/users/${userId}/unfollow`, { 
-      method: 'POST' 
+  unfollowUser: (followerId, userId) =>
+    fetchApi(`/follow`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        follower: { userId: followerId },
+        user: { userId: userId }
+      })
     }),
+  
+  isFollowing: (followerId, userId) =>
+    fetchApi(`/follow/check?followerId=${followerId}&followingId=${userId}`),
   
   // Posts
   getPosts: (page = 1, limit = 10) => 
@@ -185,17 +142,11 @@ export const api = {
       method: 'POST', 
       body: JSON.stringify(postData) 
     }),
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   // Add this method to your api.js file
   getUserPosts: (userId) => 
     fetchApi(`/posts/user/${userId}`),
 
-=======
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
   
   updatePost: (postId, postData) => 
     fetchApi(`/posts/${postId}`, { 
@@ -217,11 +168,14 @@ export const api = {
     fetchApi(`/posts/${postId}/unlike`, { 
       method: 'POST' 
     }),
+
+  // Add this to the api object in api.js
+  loadFeed: (userId) => 
+    fetchApi(`/posts/loadfeed/${userId}`),
+
   
   // Comments
   getComments: (postId) => 
-<<<<<<< HEAD
-<<<<<<< HEAD
     fetchApi(`/comments/post/${postId}`),
 
   createComment: (commentData) => 
@@ -258,74 +212,163 @@ export const api = {
   unlikePost: (postId, userId) => 
     fetchApi(`/likes/${postId}/user/${userId}`, { 
       method: 'DELETE' 
-=======
-=======
->>>>>>> origin/Member04
-    fetchApi(`/posts/${postId}/comments`),
-  
-  createComment: (postId, content) => 
-    fetchApi(`/posts/${postId}/comments`, { 
-      method: 'POST', 
-      body: JSON.stringify({ content }) 
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
     }),
   
   // Learning Plans
-  getLearningPlans: () => 
-    fetchApi('/learning-plans'),
-  
+  getLearningPlans: (userId) => 
+    fetchApi(`/learning-plans/user/${userId}`),
+
   getLearningPlanById: (planId) => 
     fetchApi(`/learning-plans/${planId}`),
-  
+
   createLearningPlan: (planData) => 
     fetchApi('/learning-plans', { 
       method: 'POST', 
       body: JSON.stringify(planData) 
     }),
-  
+
   updateLearningPlan: (planId, planData) => 
-    fetchApi(`/learning-plans/${planId}`, { 
+    fetchApi(`/learning-plans`, { 
       method: 'PUT', 
       body: JSON.stringify(planData) 
     }),
-  
-  // Progress
-  getProgress: () => 
-    fetchApi('/progress'),
-  
-  updateProgress: (progressData) => 
-    fetchApi('/progress', { 
+
+  deleteLearningPlan: (planId) => 
+    fetchApi(`/learning-plans/${planId}`, { 
+      method: 'DELETE' 
+    }),
+
+  // Learning Plan Items
+  getLearningPlanItems: (planId) => 
+    fetchApi(`/learning-plan-items/plan/${planId}`),
+
+  createLearningPlanItem: (itemData) => 
+    fetchApi('/learning-plan-items', { 
+      method: 'POST', 
+      body: JSON.stringify(itemData) 
+    }),
+
+  updateLearningPlanItem: (itemData) => 
+    fetchApi('/learning-plan-items', { 
       method: 'PUT', 
-      body: JSON.stringify(progressData) 
+      body: JSON.stringify(itemData) 
+    }),
+
+  deleteLearningPlanItem: (itemId) => 
+    fetchApi(`/learning-plan-items/${itemId}`, { 
+      method: 'DELETE' 
+    }),
+
+  markItemAsCompleted: (itemId) => 
+    fetchApi(`/learning-plan-items/${itemId}/complete`, { 
+      method: 'PUT' 
+    }),
+
+  
+  // Learning Updates
+  getLearningUpdates: (userId) => 
+    fetchApi(`/learning-updates/user/${userId}`),
+
+  getLearningUpdateById: (updateId) => 
+    fetchApi(`/learning-updates/${updateId}`),
+
+  getLearningUpdatesByStatus: (userId, status) => 
+    fetchApi(`/learning-updates/user/${userId}/status/${encodeURIComponent(status)}`),
+
+  getLearningUpdatesByCategory: (userId, category) => 
+    fetchApi(`/learning-updates/user/${userId}/category/${encodeURIComponent(category)}`),
+
+  getLearningUpdatesByType: (userId, type) => 
+    fetchApi(`/learning-updates/user/${userId}/type/${encodeURIComponent(type)}`),
+
+  getLearningUpdatesByLevel: (userId, level) => 
+    fetchApi(`/learning-updates/user/${userId}/level/${encodeURIComponent(level)}`),
+
+  createLearningUpdate: (updateData) => 
+    fetchApi('/learning-updates', { 
+      method: 'POST', 
+      body: JSON.stringify(updateData) 
+    }),
+
+  createLearningUpdateFromTemplate: (templateType, userId) => 
+    fetchApi(`/learning-updates/template?templateType=${encodeURIComponent(templateType)}&userId=${userId}`, { 
+      method: 'POST' 
+    }),
+
+  updateLearningUpdate: (updateData) => 
+    fetchApi(`/learning-updates/${updateData.updateId}`, { 
+      method: 'PUT', 
+      body: JSON.stringify(updateData) 
+    }),
+
+  updateLearningUpdateStatus: (updateId, status, completionPercentage) => {
+    let url = `/learning-updates/${updateId}/status?status=${encodeURIComponent(status)}`;
+    if (completionPercentage !== undefined) {
+      url += `&completionPercentage=${completionPercentage}`;
+    }
+    return fetchApi(url, { method: 'PUT' });
+  },
+
+  deleteLearningUpdate: (updateId) => 
+    fetchApi(`/learning-updates/${updateId}`, { 
+      method: 'DELETE' 
     }),
   
   // Notifications
-  getNotifications: () => 
-    fetchApi('/notifications'),
+  getNotifications: (userId) => 
+    fetchApi(`/notifications/user/${userId}`),
+  
+  getUnreadNotifications: (userId) => 
+    fetchApi(`/notifications/user/${userId}/unread`),
   
   markNotificationAsRead: (notificationId) => 
     fetchApi(`/notifications/${notificationId}/read`, { 
       method: 'PUT' 
     }),
   
-  // Admin
-  getUsers: (page = 1, limit = 10) => 
-    fetchApi(`/admin/users?page=${page}&limit=${limit}`),
-  
-  updateUserRole: (userId, role) => 
-    fetchApi(`/admin/users/${userId}/role`, { 
-      method: 'PUT', 
-      body: JSON.stringify({ role }) 
+  markAllNotificationsAsRead: (userId) => 
+    fetchApi(`/notifications/user/${userId}/read-all`, { 
+      method: 'PUT' 
     }),
   
-  sendBroadcast: (message) => 
-    fetchApi('/admin/broadcast', { 
-      method: 'POST', 
-      body: JSON.stringify({ message }) 
+  deleteNotification: (notificationId) => 
+    fetchApi(`/notifications/${notificationId}`, { 
+      method: 'DELETE' 
     }),
+  
+  deleteAllNotifications: (userId) => 
+    fetchApi(`/notifications/user/${userId}`, { 
+      method: 'DELETE' 
+    }),
+  
+  
+// Admin Messages
+getAdminMessages: () => 
+  fetchApi('/admin-messages'),
+
+getAdminMessageById: (messageId) => 
+  fetchApi(`/admin-messages/${messageId}`),
+
+getAdminMessagesByAdminId: (adminId) => 
+  fetchApi(`/admin-messages/admin/${adminId}`),
+
+createAdminMessage: (messageData) => 
+  fetchApi('/admin-messages', { 
+    method: 'POST', 
+    body: JSON.stringify(messageData) 
+  }),
+
+updateAdminMessage: (messageData) => 
+  fetchApi('/admin-messages', { 
+    method: 'PUT', 
+    body: JSON.stringify(messageData) 
+  }),
+
+deleteAdminMessage: (messageId) => 
+  fetchApi(`/admin-messages/${messageId}`, { 
+    method: 'DELETE' 
+  }),
+
 };
 
 export default api;

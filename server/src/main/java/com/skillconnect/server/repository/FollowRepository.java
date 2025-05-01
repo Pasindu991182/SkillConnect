@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FollowRepository extends JpaRepository<Follow, Integer> {
-<<<<<<< HEAD
-<<<<<<< HEAD
     List<Follow> findByFollower_userId(int id);
     List<Follow> findByUser_UserId(int id);
     
@@ -17,21 +15,4 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
     int countByUser(User following);
     
     Optional<Follow> findByFollower_UserIdAndUser_UserId(int follower, int following);
-=======
-=======
->>>>>>> origin/Member04
-    List<Follow> findByFollower_userid(int id);
-    List<Follow> findByFollowing_userid(int id);
-    
-    int countByFollower(User follower);
-    int countByFollowing(User following);
-    
-    Optional<Follow> findByFollower_UserIdAndFollowing_UserId(int follower, int following);
-    boolean existsByFollowerAndFollowing(User follower, User following);
-    
-    void deleteByFollowerAndFollowing(User follower, User following);
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
 }

@@ -1,336 +1,245 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-package com.skillconnect.server.service.impl;
-=======
 package com.skillconnect.server.service.serviceImpl;
->>>>>>> origin/Member02
-=======
-package com.skillconnect.server.service.serviceImpl;
->>>>>>> origin/Member04
 
-import com.skillconnect.server.model.LearningPlan;
 import com.skillconnect.server.model.LearningUpdate;
-import com.skillconnect.server.model.UpdateTemplate;
 import com.skillconnect.server.model.User;
-import com.skillconnect.server.repository.LearningPlanRepository;
 import com.skillconnect.server.repository.LearningUpdateRepository;
-import com.skillconnect.server.repository.UpdateTemplateRepository;
 import com.skillconnect.server.repository.UserRepository;
 import com.skillconnect.server.service.LearningUpdateService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Log4j2
 @Service
+@Log4j2
 @Transactional
 public class LearningUpdateServiceImpl implements LearningUpdateService {
 
     private final LearningUpdateRepository learningUpdateRepository;
-    private final LearningPlanRepository learningPlanRepository;
     private final UserRepository userRepository;
-    private final UpdateTemplateRepository updateTemplateRepository;
-    
+
     @Autowired
-    public LearningUpdateServiceImpl(
-            LearningUpdateRepository learningUpdateRepository,
-            LearningPlanRepository learningPlanRepository,
-            UserRepository userRepository,
-            UpdateTemplateRepository updateTemplateRepository) {
+    public LearningUpdateServiceImpl(LearningUpdateRepository learningUpdateRepository, UserRepository userRepository) {
         this.learningUpdateRepository = learningUpdateRepository;
-        this.learningPlanRepository = learningPlanRepository;
         this.userRepository = userRepository;
-        this.updateTemplateRepository = updateTemplateRepository;
-        log.info("LearningUpdateServiceImpl initialized");
     }
-    
+
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public LearningUpdate createUpdate(LearningUpdate update, Long userId, Long planId) {
-        log.info("Creating new learning update for user ID: {} and plan ID: {}", userId, planId);
-        
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> {
-                    log.error("User not found with ID: {}", userId);
-                    return new RuntimeException("User not found with id: " + userId);
-=======
-=======
->>>>>>> origin/Member04
-    public LearningUpdate createUpdate(LearningUpdate update, int planId) {
-        log.info("Creating new learning update for user ID: {} and plan ID: {}", update.getUser().getUserId(), planId);
-        
-        User user = userRepository.findById(update.getUser().getUserId())
-                .orElseThrow(() -> {
-                    log.error("User not found with ID: {}", update.getUser().getUserId());
-                    return new RuntimeException("User not found with id: " + update.getUser().getUserId());
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
-                });
-        
-        LearningPlan plan = learningPlanRepository.findById(planId)
-                .orElseThrow(() -> {
-                    log.error("Learning plan not found with ID: {}", planId);
-                    return new RuntimeException("Learning plan not found with id: " + planId);
-                });
-        
-<<<<<<< HEAD
-<<<<<<< HEAD
-        // Verify the plan belongs to the user
-        if (!plan.getUser().getId().equals(userId)) {
-            log.error("Learning plan ID: {} does not belong to user ID: {}", planId, userId);
-            throw new RuntimeException("Learning plan does not belong to this user");
+    public LearningUpdate saveLearningUpdate(LearningUpdate learningUpdate) {
+        log.info("Saving new learning update for user ID: {}", learningUpdate.getUser().getUserId());
+
+        // Set creation time if not already set
+        if (learningUpdate.getCreatedAt() == null) {
+            learningUpdate.setCreatedAt(LocalDateTime.now());
         }
         
-        update.setUser(user);
-        update.setLearningPlan(plan);
-        // The @PrePersist will handle setting createdAt and updatedAt
-        
-        LearningUpdate savedUpdate = learningUpdateRepository.save(update);
-        log.info("Learning update created successfully with ID: {}", savedUpdate.getId());
-=======
-=======
->>>>>>> origin/Member04
-        // Verify the plan beints to the user
-        if (plan.getUser().getUserId() != update.getUser().getUserId()) {
-            log.error("Learning plan ID: {} does not beint to user ID: {}", planId, update.getUser().getUserId());
-            throw new RuntimeException("Learning plan does not beint to this user");
-        }
-        
-        update.setUser(user);
-        // The @PrePersist will handle setting createdAt and updatedAt
-        
-        LearningUpdate savedUpdate = learningUpdateRepository.save(update);
-        log.info("Learning update created successfully with ID: {}", savedUpdate.getUpdateId());
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
+        // Set update time
+        learningUpdate.setUpdatedAt(LocalDateTime.now());
+
+        LearningUpdate savedUpdate = learningUpdateRepository.save(learningUpdate);
+        log.info("Learning update saved successfully with ID: {}", savedUpdate.getUpdateId());
         return savedUpdate;
     }
-    
+
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public LearningUpdate createUpdateFromTemplate(Long templateId, Long userId, Long planId, String content) {
-        log.info("Creating learning update from template ID: {} for user ID: {} and plan ID: {}", 
-                templateId, userId, planId);
-        
-        UpdateTemplate template = updateTemplateRepository.findById(templateId)
-                .orElseThrow(() -> {
-                    log.error("Update template not found with ID: {}", templateId);
-                    return new RuntimeException("Update template not found with id: " + templateId);
-                });
-        
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> {
-                    log.error("User not found with ID: {}", userId);
-                    return new RuntimeException("User not found with id: " + userId);
-                });
-        
-        LearningPlan plan = learningPlanRepository.findById(planId)
-                .orElseThrow(() -> {
-                    log.error("Learning plan not found with ID: {}", planId);
-                    return new RuntimeException("Learning plan not found with id: " + planId);
-                });
-        
-        // Verify the plan belongs to the user
-        if (!plan.getUser().getId().equals(userId)) {
-            log.error("Learning plan ID: {} does not belong to user ID: {}", planId, userId);
-            throw new RuntimeException("Learning plan does not belong to this user");
-        }
-        
-        LearningUpdate update = new LearningUpdate();
-        update.setTitle(template.getTitle());
-        update.setContent(content);
-        update.setUser(user);
-        update.setLearningPlan(plan);
-        update.setTemplate(template);
-        
-        LearningUpdate savedUpdate = learningUpdateRepository.save(update);
-        log.info("Learning update created from template successfully with ID: {}", savedUpdate.getId());
-=======
-=======
->>>>>>> origin/Member04
-    public LearningUpdate createUpdateFromTemplate(UpdateTemplate template, LearningPlan plan) {
-        log.info("Creating learning update from template ID: {} for user ID: {} and plan ID: {}", 
-                template.getTemplateId(), plan.getUser().getUserId(), plan.getPlanId());
-        
-        UpdateTemplate templateExist = updateTemplateRepository.findById(template.getTemplateId())
-                .orElseThrow(() -> {
-                    log.error("Update template not found with ID: {}", template.getTemplateId());
-                    return new RuntimeException("Update template not found with id: " + template.getTemplateId());
-                });
-        
-        User user = userRepository.findById(plan.getUser().getUserId())
-                .orElseThrow(() -> {
-                    log.error("User not found with ID: {}", plan.getUser().getUserId());
-                    return new RuntimeException("User not found with id: " + plan.getUser().getUserId());
-                });
-        
-        LearningPlan planExist = learningPlanRepository.findById(plan.getUser().getUserId())
-                .orElseThrow(() -> {
-                    log.error("Learning plan not found with ID: {}", plan.getPlanId());
-                    return new RuntimeException("Learning plan not found with id: " + plan.getPlanId());
-                });
-        
-        // Verify the plan beints to the user
-        if (planExist.getUser().getUserId() != plan.getUser().getUserId()) {
-            log.error("Learning plan ID: {} does not beint to user ID: {}", plan.getPlanId(), plan.getUser().getUserId());
-            throw new RuntimeException("Learning plan does not beint to this user");
-        }
-        
-        LearningUpdate update = new LearningUpdate();
-        update.setTitle(templateExist.getName());
-        update.setDescription(templateExist.getDescription());
-        update.setUser(user);
-        
-        LearningUpdate savedUpdate = learningUpdateRepository.save(update);
-        log.info("Learning update created from template successfully with ID: {}", savedUpdate.getUpdateId());
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
-        return savedUpdate;
-    }
-    
-    @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public Optional<LearningUpdate> findById(Long updateId) {
-=======
     public Optional<LearningUpdate> findById(int updateId) {
->>>>>>> origin/Member02
-=======
-    public Optional<LearningUpdate> findById(int updateId) {
->>>>>>> origin/Member04
         log.debug("Finding learning update by ID: {}", updateId);
         return learningUpdateRepository.findById(updateId);
     }
-    
+
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public List<LearningUpdate> findUpdatesByUserId(Long userId) {
-        log.debug("Finding learning updates for user ID: {}", userId);
-        List<LearningUpdate> updates = learningUpdateRepository.findByUserId(userId);
-=======
-    public List<LearningUpdate> findUpdatesByUserId(int userId) {
-        log.debug("Finding learning updates for user ID: {}", userId);
-        List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserId(userId);
->>>>>>> origin/Member02
-=======
-    public List<LearningUpdate> findUpdatesByUserId(int userId) {
-        log.debug("Finding learning updates for user ID: {}", userId);
-        List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserId(userId);
->>>>>>> origin/Member04
-        log.debug("Found {} updates for user ID: {}", updates.size(), userId);
-        return updates;
-    }
-    
-    @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public List<LearningUpdate> findUpdatesByPlanId(Long planId) {
-        log.debug("Finding learning updates for plan ID: {}", planId);
-        List<LearningUpdate> updates = learningUpdateRepository.findByLearningPlanId(planId);
-        log.debug("Found {} updates for plan ID: {}", updates.size(), planId);
-        return updates;
-    }
-    
-    @Override
-    public LearningUpdate updateLearningUpdate(LearningUpdate update) {
-        log.info("Updating learning update with ID: {}", update.getId());
-        if (!learningUpdateRepository.existsById(update.getId())) {
-            log.error("Learning update not found with ID: {}", update.getId());
-            throw new RuntimeException("Learning update not found with id: " + update.getId());
-=======
-=======
->>>>>>> origin/Member04
-    public LearningUpdate updateLearningUpdate(LearningUpdate update) {
-        log.info("Updating learning update with ID: {}", update.getUpdateId());
-        if (!learningUpdateRepository.existsById(update.getUpdateId())) {
-            log.error("Learning update not found with ID: {}", update.getUpdateId());
-            throw new RuntimeException("Learning update not found with id: " + update.getUpdateId());
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
-        }
-        
-        update.setUpdatedAt(LocalDateTime.now());
-        LearningUpdate updatedUpdate = learningUpdateRepository.save(update);
-<<<<<<< HEAD
-<<<<<<< HEAD
-        log.info("Learning update updated successfully: {}", update.getId());
-=======
-        log.info("Learning update updated successfully: {}", update.getUpdateId());
->>>>>>> origin/Member02
-=======
-        log.info("Learning update updated successfully: {}", update.getUpdateId());
->>>>>>> origin/Member04
-        return updatedUpdate;
-    }
-    
-    @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public void deleteUpdate(Long updateId) {
-=======
-    public void deleteUpdate(int updateId) {
->>>>>>> origin/Member02
-=======
-    public void deleteUpdate(int updateId) {
->>>>>>> origin/Member04
-        log.info("Deleting learning update with ID: {}", updateId);
-        learningUpdateRepository.deleteById(updateId);
-        log.info("Learning update deleted successfully: {}", updateId);
-    }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-    @Override
-    public List<LearningUpdate> findRecentUpdates(Long userId, int limit) {
-        log.debug("Finding recent {} learning updates for user ID: {}", limit, userId);
-        List<LearningUpdate> recentUpdates = learningUpdateRepository.findByUserIdOrderByCreatedAtDesc(userId, limit);
-        log.debug("Found {} recent updates for user ID: {}", recentUpdates.size(), userId);
-        return recentUpdates;
-    }
-    
-    @Override
-    public List<LearningUpdate> findUpdatesByTemplateId(Long templateId) {
-        log.debug("Finding learning updates for template ID: {}", templateId);
-        List<LearningUpdate> updates = learningUpdateRepository.findByTemplateId(templateId);
-        log.debug("Found {} updates for template ID: {}", updates.size(), templateId);
-        return updates;
-    }
-    
-    @Override
-    public int countUpdatesByPlanId(Long planId) {
-        log.debug("Counting learning updates for plan ID: {}", planId);
-        int count = learningUpdateRepository.countByLearningPlanId(planId);
-        log.debug("Found {} updates for plan ID: {}", count, planId);
-        return count;
-    }
-    
-    @Override
-    public List<LearningUpdate> findAllUpdates() {
+    public List<LearningUpdate> findAllLearningUpdates() {
         log.debug("Retrieving all learning updates");
         List<LearningUpdate> updates = learningUpdateRepository.findAll();
         log.debug("Found {} learning updates", updates.size());
         return updates;
     }
-=======
 
->>>>>>> origin/Member02
-=======
+    @Override
+    public List<LearningUpdate> findByUserId(int userId) {
+        log.debug("Finding learning updates for user ID: {}", userId);
+        List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserId(userId);
+        log.debug("Found {} learning updates for user ID: {}", updates.size(), userId);
+        return updates;
+    }
 
->>>>>>> origin/Member04
+    @Override
+    public LearningUpdate updateLearningUpdate(LearningUpdate learningUpdate) {
+        log.info("Updating learning update with ID: {}", learningUpdate.getUpdateId());
+        if (!learningUpdateRepository.existsById(learningUpdate.getUpdateId())) {
+            log.error("Learning update not found with ID: {}", learningUpdate.getUpdateId());
+            throw new RuntimeException("Learning update not found with id: " + learningUpdate.getUpdateId());
+        }
+
+        // Set update time
+        learningUpdate.setUpdatedAt(LocalDateTime.now());
+        
+        LearningUpdate updatedLearningUpdate = learningUpdateRepository.save(learningUpdate);
+        log.info("Learning update updated successfully: {}", learningUpdate.getUpdateId());
+        return updatedLearningUpdate;
+    }
+
+    @Override
+    public void deleteLearningUpdate(int updateId) {
+        log.info("Deleting learning update with ID: {}", updateId);
+        learningUpdateRepository.deleteById(updateId);
+        log.info("Learning update deleted successfully: {}", updateId);
+    }
+
+    @Override
+    public List<LearningUpdate> findByCategory(String category) {
+        log.debug("Finding learning updates by category: {}", category);
+        List<LearningUpdate> updates = learningUpdateRepository.findByCategory(category);
+        log.debug("Found {} learning updates for category: {}", updates.size(), category);
+        return updates;
+    }
+
+    @Override
+    public List<LearningUpdate> findByType(String type) {
+        log.debug("Finding learning updates by type: {}", type);
+        List<LearningUpdate> updates = learningUpdateRepository.findByType(type);
+        log.debug("Found {} learning updates for type: {}", updates.size(), type);
+        return updates;
+    }
+
+    @Override
+    public List<LearningUpdate> findByLevel(String level) {
+        log.debug("Finding learning updates by level: {}", level);
+        List<LearningUpdate> updates = learningUpdateRepository.findByLevel(level);
+        log.debug("Found {} learning updates for level: {}", updates.size(), level);
+        return updates;
+    }
+    
+    @Override
+    public List<LearningUpdate> findByStatus(String status) {
+        log.debug("Finding learning updates by status: {}", status);
+        List<LearningUpdate> updates = learningUpdateRepository.findByStatus(status);
+        log.debug("Found {} learning updates for status: {}", updates.size(), status);
+        return updates;
+    }
+
+    @Override
+    public List<LearningUpdate> findByUserIdAndStatus(int userId, String status) {
+        log.debug("Finding learning updates for user ID: {} with status: {}", userId, status);
+        List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserIdAndStatus(userId, status);
+        log.debug("Found {} learning updates", updates.size());
+        return updates;
+    }
+
+    @Override
+    public List<LearningUpdate> findByUserIdAndCategory(int userId, String category) {
+        log.debug("Finding learning updates for user ID: {} with category: {}", userId, category);
+        List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserIdAndCategory(userId, category);
+        log.debug("Found {} learning updates", updates.size());
+        return updates;
+    }
+
+    @Override
+    public List<LearningUpdate> findByUserIdAndType(int userId, String type) {
+        log.debug("Finding learning updates for user ID: {} with type: {}", userId, type);
+        List<LearningUpdate> updates = learningUpdateRepository.findByUser_UserIdAndType(userId, type);
+        log.debug("Found {} learning updates", updates.size());
+        return updates;
+    }
+
+    @Override
+    public LearningUpdate createFromTemplate(String templateType, int userId) {
+        log.info("Creating learning update from template: {} for user ID: {}", templateType, userId);
+        
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+        
+        LearningUpdate update = new LearningUpdate();
+        update.setUser(user);
+        update.setCreatedAt(LocalDateTime.now());
+        update.setUpdatedAt(LocalDateTime.now());
+        
+        switch (templateType) {
+            case "TUTORIAL":
+                update.setTitle("Complete Online Tutorial");
+                update.setType("Tutorial");
+                update.setCategory("Online Learning");
+                update.setLearningMethod("Video Tutorial");
+                update.setLevel("Beginner");
+                update.setStatus("Not Started");
+                update.setCompletionPercentage(0);
+                break;
+            case "CERTIFICATE":
+                update.setTitle("Complete Certification Course");
+                update.setType("Certification");
+                update.setCategory("Professional Development");
+                update.setLearningMethod("Online Course");
+                update.setLevel("Intermediate");
+                update.setStatus("Not Started");
+                update.setCompletionPercentage(0);
+                break;
+            case "EXAM":
+                update.setTitle("Pass Certification Exam");
+                update.setType("Exam");
+                update.setCategory("Assessment");
+                update.setLearningMethod("Examination");
+                update.setLevel("Advanced");
+                update.setStatus("Not Started");
+                update.setCompletionPercentage(0);
+                break;
+            case "PROJECT":
+                update.setTitle("Complete Practice Project");
+                update.setType("Project");
+                update.setCategory("Hands-on Learning");
+                update.setLearningMethod("Project-based");
+                update.setLevel("Intermediate");
+                update.setStatus("Not Started");
+                update.setCompletionPercentage(0);
+                break;
+            default:
+                update.setTitle("Custom Learning Update");
+                update.setType("Custom");
+                update.setStatus("Not Started");
+                update.setCompletionPercentage(0);
+        }
+        
+        return learningUpdateRepository.save(update);
+    }
+
+    @Override
+    public LearningUpdate updateStatus(int updateId, String status, Integer completionPercentage) {
+        log.info("Updating status for learning update ID: {} to {}", updateId, status);
+        
+        LearningUpdate update = learningUpdateRepository.findById(updateId)
+                .orElseThrow(() -> new RuntimeException("Learning update not found with ID: " + updateId));
+        
+        update.setStatus(status);
+        update.setUpdatedAt(LocalDateTime.now());
+        
+        if (completionPercentage != null) {
+            update.setCompletionPercentage(completionPercentage);
+        } else {
+            // Set default percentage based on status
+            switch (status) {
+                case "Not Started":
+                    update.setCompletionPercentage(0);
+                    break;
+                case "In Progress":
+                    update.setCompletionPercentage(25);
+                    break;
+                case "Ongoing":
+                    update.setCompletionPercentage(50);
+                    break;
+                case "Almost Complete":
+                    update.setCompletionPercentage(75);
+                    break;
+                case "Completed":
+                    update.setCompletionPercentage(100);
+                    break;
+                default:
+                    // Keep existing percentage
+            }
+        }
+        
+        return learningUpdateRepository.save(update);
+    }
 }

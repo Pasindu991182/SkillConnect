@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.log4j.Log4j2;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,17 +69,7 @@ public class LearningPlanItemServiceImpl implements LearningPlanItemService {
             log.error("Learning plan item not found with ID: {}", item.getItemId());
             throw new RuntimeException("Learning plan item not found with id: " + item.getItemId());
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-        
-        item.setUpdatedAt(LocalDateTime.now());
->>>>>>> origin/Member02
-=======
-        
-        item.setUpdatedAt(LocalDateTime.now());
->>>>>>> origin/Member04
         LearningPlanItem updatedItem = learningPlanItemRepository.save(item);
         log.info("Learning plan item updated successfully: {}", item.getItemId());
         return updatedItem;
@@ -104,19 +92,7 @@ public class LearningPlanItemServiceImpl implements LearningPlanItemService {
                     return new RuntimeException("Learning plan item not found with id: " + itemId);
                 });
         
-<<<<<<< HEAD
-<<<<<<< HEAD
         item.setComplete(true);
-=======
-        item.setStatus("complete");
-        item.setCompletionDate(LocalDate.now());
-        item.setUpdatedAt(LocalDateTime.now());
->>>>>>> origin/Member02
-=======
-        item.setStatus("complete");
-        item.setCompletionDate(LocalDate.now());
-        item.setUpdatedAt(LocalDateTime.now());
->>>>>>> origin/Member04
         
         LearningPlanItem updatedItem = learningPlanItemRepository.save(item);
         log.info("Learning plan item marked as completed: {}", itemId);

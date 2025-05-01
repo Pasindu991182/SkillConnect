@@ -2,15 +2,6 @@ package com.skillconnect.server.controller;
 
 import com.skillconnect.server.model.Post;
 import com.skillconnect.server.service.PostService;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import lombok.RequiredArgsConstructor;
-=======
-import lombok.AllArgsConstructor;
->>>>>>> origin/Member02
-=======
-import lombok.AllArgsConstructor;
->>>>>>> origin/Member04
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,29 +11,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-@AllArgsConstructor(onConstructor = @__(@Autowired))
->>>>>>> origin/Member02
-=======
-@AllArgsConstructor(onConstructor = @__(@Autowired))
->>>>>>> origin/Member04
 public class PostController {
 
     private final PostService postService;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
     }
 
-=======
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         Post createdPost = postService.createPost(post);
@@ -69,17 +46,7 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<Post> updatePost(@RequestBody Post post) {
-=======
-    public ResponseEntity<Post> updatePost(@PathVariable int postId, @RequestBody Post post) {
-        post.setPostId(postId);
->>>>>>> origin/Member02
-=======
-    public ResponseEntity<Post> updatePost(@PathVariable int postId, @RequestBody Post post) {
-        post.setPostId(postId);
->>>>>>> origin/Member04
         Post updatedPost = postService.updatePost(post);
         return ResponseEntity.ok(updatedPost);
     }
@@ -88,6 +55,12 @@ public class PostController {
     public ResponseEntity<Void> deletePost(@PathVariable int postId) {
         postService.deletePost(postId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/loadfeed/{userId}")
+    public ResponseEntity<List<Post>> loadFeed(@PathVariable int userId) {
+        List<Post> posts = postService.loadFeed(userId);
+        return ResponseEntity.ok(posts);
     }
 }
 

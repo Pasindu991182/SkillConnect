@@ -55,21 +55,9 @@ public class AdminMessageServiceImpl implements AdminMessageService {
     }
     
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
     public Optional<AdminMessage> findById(int id) {
         log.debug("Finding admin message by ID: {}", id);
         return adminMessageRepository.findById(id);
-=======
-    public Optional<AdminMessage> findById(AdminMessage message) {
-        log.debug("Finding admin message by ID: {}", message.getMessageId());
-        return adminMessageRepository.findById(message.getMessageId());
->>>>>>> origin/Member02
-=======
-    public Optional<AdminMessage> findById(AdminMessage message) {
-        log.debug("Finding admin message by ID: {}", message.getMessageId());
-        return adminMessageRepository.findById(message.getMessageId());
->>>>>>> origin/Member04
     }
     
     @Override
@@ -81,23 +69,10 @@ public class AdminMessageServiceImpl implements AdminMessageService {
     }
     
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
     public List<AdminMessage> findMessagesByAdminId(int id) {
         log.debug("Finding admin messages by admin ID: {}", id);
         List<AdminMessage> messages = adminMessageRepository.findByAdmin_UserId(id);
         log.debug("Found {} messages by admin ID: {}", messages.size(), id);
-=======
-=======
->>>>>>> origin/Member04
-    public List<AdminMessage> findMessagesByAdminId(AdminMessage message) {
-        log.debug("Finding admin messages by admin ID: {}", message.getAdmin().getUserId());
-        List<AdminMessage> messages = adminMessageRepository.findByAdmin_UserId(message.getAdmin().getUserId());
-        log.debug("Found {} messages by admin ID: {}", messages.size(), message.getAdmin().getUserId());
-<<<<<<< HEAD
->>>>>>> origin/Member02
-=======
->>>>>>> origin/Member04
         return messages;
     }
     
