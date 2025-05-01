@@ -2,6 +2,7 @@ package com.skillconnect.server.controller;
 
 import com.skillconnect.server.model.Post;
 import com.skillconnect.server.service.PostService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PostController {
 
     private final PostService postService;
-
-    @Autowired
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
 
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
@@ -46,7 +43,8 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<Post> updatePost(@RequestBody Post post) {
+    public ResponseEntity<Post> updatePost(@PathVariable int postId, @RequestBody Post post) {
+        post.setPostId(postId);
         Post updatedPost = postService.updatePost(post);
         return ResponseEntity.ok(updatedPost);
     }
@@ -56,12 +54,5 @@ public class PostController {
         postService.deletePost(postId);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping("/loadfeed/{userId}")
-    public ResponseEntity<List<Post>> loadFeed(@PathVariable int userId) {
-        List<Post> posts = postService.loadFeed(userId);
-        return ResponseEntity.ok(posts);
-    }
 }
-
 

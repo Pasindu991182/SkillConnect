@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,44 +14,48 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "Posts")
 public class Post {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private int postId;
-
-    @ManyToOne
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
+    
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
-
+    
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
-
+    
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @Column(name = "media1")
-    private String media1;
-
-    @Column(name = "media2")
-    private String media2;
-
-    @Column(name = "media3")
-    private String media3;
-
-    @ManyToOne
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Media> mediaList;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+    
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "learning_update_id")
     private LearningUpdate learningUpdate;
-
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "learning_plan_id")
+    private LearningPlan learningPlan;
+    
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
-
+    
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
