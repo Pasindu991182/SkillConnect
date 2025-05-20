@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080/api'; // Replace with your actual API URL
+const API_URL = 'http://localhost:8081/api'; // Replace with your actual API URL
 
 // Helper function for making API requests
 const fetchApi = async (endpoint, options = {}) => {
