@@ -89,7 +89,7 @@ public class OAuthServiceImpl implements OAuthService {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", code);
-        params.add("redirect_uri", "http://localhost:8080/api/users/oauth2");
+        params.add("redirect_uri", "http://localhost:8081/api/users/oauth2");
         params.add("client_id", clientId);
         params.add("client_secret", clientSecret);
         params.add("scope", "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile");
